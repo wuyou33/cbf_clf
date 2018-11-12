@@ -1,4 +1,4 @@
 <launch>
-  <node name="controller" pkg="cbf_clf" type="controller" />
+  <node name="controller" pkg="cbf_clf" type="controller" output="screen"/>
   <include file="$(find zed_wrapper)/launch/zed.launch"/>
 </launch>

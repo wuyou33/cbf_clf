@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 	ros::init(argc, argv, "cbf_clf_controller");
   ros::NodeHandle node;
 
-  ros::Rate loop_rate(10); //Needs to be declared AFTER the NodeHandle !
+  ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
   ROS_WARN("Starting while loop in controller.cpp");
   while (ros::ok())

@@ -11,6 +11,6 @@
 #include "input_message_handler.h"
 
 // Variables
-//  ros::Rate loop_rate(10); //Loop Rate of 10 Hz
+int loop_rate_ = 10; //Loop Rate of 10 Hz
 
 // Functions
