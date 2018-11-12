@@ -19,23 +19,24 @@
 int main(int argc, char** argv)
 {
 
-  ROS_INFO("Starting controller.cpp");
+  ROS_WARN("Starting controller.cpp");
 
   //Initizializing a ROS-node called "cbf_clf_controller"
 	ros::init(argc, argv, "cbf_clf_controller");
   ros::NodeHandle node;
 
+  ros::Rate loop_rate(10); //Needs to be declared AFTER the NodeHandle !
 
-  ROS_INFO("Starting while loop in controller.cpp");
+  ROS_WARN("Starting while loop in controller.cpp");
   while (ros::ok())
   {
     
     // Update pose information
-    ROS_INFO("Update pose information");
+    ROS_WARN("Update pose information");
     ros::Subscriber zedPose = node.subscribe("/zed/pose", 10, zed_pose_Callback);
 
-    ROS_INFO("Publish pose data");
-    ROS_INFO("pose x: [%f], y: [%f], z: [%f]", pose_tx, pose_ty, pose_tz);
+    ROS_WARN("Publish pose data");
+    ROS_WARN("pose x: [%f], y: [%f], z: [%f]", pose_tx, pose_ty, pose_tz);
 
     ros::spinOnce();
     loop_rate.sleep();
