@@ -196,6 +196,7 @@ include_directories(
 # catkin_add_nosetests(test)
 
 add_executable(controller
+  src/controller.cpp
   include/cbf_clf/controller.h
   src/controller.cpp
 )
@@ -203,3 +204,11 @@ add_dependencies(controller ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTE
 target_link_libraries(controller
   ${catkin_LIBRARIES}
 )
+
+# add_executable(input_message_handler
+#   include/cbf_clf/input_message_handler.h
+# )
+# add_dependencies(input_message_handler ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# target_link_libraries(input_message_handler
+#   ${catkin_LIBRARIES}
+# )
