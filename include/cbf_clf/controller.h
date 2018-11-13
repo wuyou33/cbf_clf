@@ -11,6 +11,6 @@
 #include "input_message_handler.h"
 
 // Variables
-int loop_rate_ = 10; //Loop Rate of 10 Hz
+int loop_rate_ = 1; //Loop Rate of 10 Hz
 
 // Functions
