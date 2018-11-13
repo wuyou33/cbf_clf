@@ -66,7 +66,7 @@ void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
     ROS_INFO("Received odom in '%s' frame : X: %.2f Y: %.2f Z: %.2f - R: %.2f P: %.2f Y: %.2f",
              msg->header.frame_id.c_str(),
              odom_tx, odom_ty, odom_tz,
-             odom_roll * RAD2DEG, odom_pitch * RAD2DEG, yodom_aw * RAD2DEG);
+             odom_roll * RAD2DEG, odom_pitch * RAD2DEG, odom_yaw * RAD2DEG);
 }
 
 void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
