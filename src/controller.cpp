@@ -19,6 +19,13 @@
 void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     ROS_WARN("Called Calback Function successful");
 
+    double pose_tx;
+    double pose_ty;
+    double pose_tz;
+    double pose_roll;
+    double pose_pitch;
+    double pose_yaw;
+
     // Camera position in map frame
     pose_tx = msg->pose.position.x;
     pose_ty = msg->pose.position.y;
