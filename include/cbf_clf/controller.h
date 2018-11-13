@@ -39,6 +39,7 @@ double odom_yaw;
 
 // Variables
 int loop_rate_ = 1; //Loop Rate of 10 Hz
+ros::Subscriber zedPose;
 
 // Functions
 // void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {

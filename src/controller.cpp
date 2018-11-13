@@ -76,7 +76,8 @@ int main(int argc, char** argv)
     
     // Update pose information
     ROS_WARN("Update pose information");
-    ros::Subscriber zedPose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
+    // ros::Subscriber zedPose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
+    zedPose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
     ROS_WARN("pose x: [%f], y: [%f], z: [%f]", pose_tx, pose_ty, pose_tz);
 
     ros::spinOnce();
