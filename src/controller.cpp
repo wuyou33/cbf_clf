@@ -65,7 +65,7 @@ int main(int argc, char** argv)
   ros::NodeHandle node;
 
   ROS_WARN("Sleep for 15 s");
-  ros::Rate sleeptimer(15);
+  ros::Rate sleeptimer(1.0/15.0);
   sleeptimer.sleep();
 
   ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
