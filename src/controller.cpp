@@ -64,6 +64,10 @@ int main(int argc, char** argv)
 	ros::init(argc, argv, "cbf_clf_controller");
   ros::NodeHandle node;
 
+  ROS_WARN("Sleep for 15 s");
+  ros::Rate sleeptimer(15);
+  sleeptimer.sleep();
+
   ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
   ROS_WARN("Starting while loop in controller.cpp");
