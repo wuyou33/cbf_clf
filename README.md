@@ -1,7 +1,7 @@
 # CBF-CLF (Control-Barrier-Function-Control-Control-Lyapunov-Function)
 
 ## General
-This repository is an open-source implementation of the control laws discussed in [1](http://hybrid-robotics.berkeley.edu/ACC2016_Safety_Control_Planar_Quadrotor.html "Wu, Sreenath 2016 - Safety-critical control of a planar") and [2](http://hybrid-robotics.berkeley.edu/DSCC2016_Safety_Control_3D_Quadrotor.html "Wu, Sreenath 2016 - Safety-Critical Control of a 3D"). It is written in C++ for ROS and optimized to work on the [Jetson TX2](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems-dev-kits-modules/ "Jetson TX2") and the [Aerocore 2 for Jetson TX2](https://store.gumstix.com/development-boards/aerocore-2/aerocore2-for-nvidia-jetson.html "Aerocore 2"). As for the onboard camera, a [ZED Mini](https://www.stereolabs.com/zed-mini/ "ZED Mini) was used.
+This repository is an open-source implementation of the control laws discussed in [1](http://hybrid-robotics.berkeley.edu/ACC2016_Safety_Control_Planar_Quadrotor.html "Wu, Sreenath 2016 - Safety-critical control of a planar") and [2](http://hybrid-robotics.berkeley.edu/DSCC2016_Safety_Control_3D_Quadrotor.html "Wu, Sreenath 2016 - Safety-Critical Control of a 3D"). It is written in C++ for ROS and optimized to work on the [Jetson TX2](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems-dev-kits-modules/ "Jetson TX2") and the [Aerocore 2 for Jetson TX2](https://store.gumstix.com/development-boards/aerocore-2/aerocore2-for-nvidia-jetson.html "Aerocore 2"). As for the onboard camera, a [ZED Mini](https://www.stereolabs.com/zed-mini/ "ZED Mini") was used.
 
 ## License
 The project is an open-source project based on the 3-Clause BSD License.
@@ -9,7 +9,7 @@ The project is an open-source project based on the 3-Clause BSD License.
 ## Dependencies
 The code dependce on the following packages:
 * [ROS Kinetic](http://wiki.ros.org/kinetic "ROS Kinetic")
-* [ZED SDK v2.7 for Jetson TX2](https://www.stereolabs.com/developers/release/ "ZED SDK")) and the [ZED ROS Wrapper](https://github.com/stereolabs/zed-ros-wrapper "ZED ROS Warpper on GitHub")
+* [ZED SDK v2.7 for Jetson TX2](https://www.stereolabs.com/developers/release/ "ZED SDK") and the [ZED ROS Wrapper](https://github.com/stereolabs/zed-ros-wrapper "ZED ROS Warpper on GitHub")
 * [MAVROS](http://wiki.ros.org/mavros "MAVROS")
 
 ## Installation
