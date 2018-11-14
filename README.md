@@ -14,8 +14,11 @@ The code dependce on the following packages:
 
 ## Installation
 ### Prerequisites
-* The Jetson TX2 flashed to L4T 28.2.1 (via [JetPack 3.3](https://developer.nvidia.com/embedded/downloads#?search=jetpack "JetPack 3.3") with CUDA 9). _Note that Linux for Tegra (L4T) 28.2.1 is based on Ubuntu 16.04 LTS. Thus, we recommend using Ubuntu 16.04 LTS for any computer in your development chain._
+* The Jetson TX2 flashed to L4T 28.2.1 (via [JetPack 3.3](https://developer.nvidia.com/embedded/downloads#?search=jetpack "JetPack 3.3") with CUDA 9).
 * The Aerocore 2 with a [flashed Bootloader](https://www.gumstix.com/images/aerocore_2_user_manual.pdf "Aerocore 2 User Manual with Installtion Guide") and a flashed Firmware either via [QGroundControl](http://qgroundcontrol.com/ "QGroundControl") or via [Building your own Firmware](https://www.gumstix.com/images/aerocore_2_user_manual.pdf "Aerocore 2 User Manual with Installtion Guide"). _Note: It may be neccessary to reflash the Firmware later on, but the part is still under development._
+* A computer running Ubuntu 16.04 LTS.
+### Flashing the correct Device Tree on the Jetson
+As the Aerocore 2's USB port don't natively work with the Jetson, you'll have to flash it using the correct .dts-file [provided by gumstix.com](https://geppetto.gumstix.com/#!/gumstix/preview/3062 "Download BSP"). To do so, [download the BSP zip file](https://geppetto.gumstix.com/#!/gumstix/preview/3062 "Download BSP") to a computer running a native Ubuntu 16.04. _Note: while a lot of people got the JetPack 3.3 to work inside a virtual machine, we recommend using a native installation._ Afterwards follow the instructions provided in the Readme-file.
 ### Installing ROS
 As MAVROS will require ```catkin build``` instead of the commonly used ```catkin_make```, the installtion via the current [Installation Guide](http://wiki.ros.org/kinetic/Installation "ROS Kinetic Installtion Guide") is not possible, without further modifications. Nevertheless, the following steps are indeed based on the [Installation Guide](http://wiki.ros.org/kinetic/Installation "ROS Kinetic Installtion Guide"). Thus, for further information we recommend the aforementioned guide.
 #### Step 1 - Setting up the ```sources.list``` and the keys
