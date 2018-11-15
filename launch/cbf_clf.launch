@@ -29,7 +29,7 @@
            <arg name="odometry_frame"      value="$(arg odometry_frame)" />
            <arg name="camera_model"        value="$(arg camera_model)" />
            <arg name="serial_number"       value="$(arg serial_number)" />
-           <arg name="imu_pub_rate"        value="$(arg imu_pub_rate)" />
+           <!-- <arg name="imu_pub_rate"        value="$(arg imu_pub_rate)" /> -->
            <arg name="resolution"          value="$(arg resolution)" />
            <arg name="frame_rate"          value="$(arg frame_rate)" />
            <arg name="verbose"             value="$(arg verbose)" />
