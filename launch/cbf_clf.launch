@@ -1,4 +1,6 @@
 <launch>
   <node name="controller" pkg="cbf_clf" type="controller" output="screen"/>
-  <include file="$(find zed_wrapper)/launch/zed.launch resolution:='3' frame_rate:=100 imu_pub_rate:=800"/>
+  <include file="$(find zed_wrapper)/launch/zed.launch>
+    <arg resolution='3' frame_rate=100 imu_pub_rate=800 />
+   </include>
 </launch>
