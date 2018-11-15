@@ -20,12 +20,12 @@ int main(int argc, char** argv)
 {
 
   //Initizializing a ROS-node called "cbf_clf_controller"
-	ros::init(argc, argv, "controller");
+	ros::init(argc, argv, "cbf_clf_controller");
   ros::NodeHandle node;
 
   ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
-
+  ROS_ERROR("I'M ALIVE");
   //while (ros::ok())
   //{
     
