@@ -13,8 +13,7 @@
 #include "nav_msgs/Odometry.h"
 
 // Custom Header Files
-//#include "input_message_handler.h"
-#include "../include/cbf_clf/input_message_handler.h"
+#include "input_message_handler.h"
 
 /*************
  * Variables *

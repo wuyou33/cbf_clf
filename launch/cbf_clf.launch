@@ -3,13 +3,13 @@
   <node name="controller" pkg="cbf_clf" type="controller" output="screen"/>
 
 <!-- Launch  ZED Wrapper-->
-   <group ns="zed">
+ <!--  <group ns="zed">-->
        <include file="$(find zed_wrapper)/launch/zed.launch">
-           <arg name="camera_model"        value="1" />
+         <!--  <arg name="camera_model"        value="1" />
            <arg name="resolution"          value="3" /> <!--0=RESOLUTION_HD2K, 1=RESOLUTION_HD1080, 2=RESOLUTION_HD720, 3=RESOLUTION_VGA -->
-           <arg name="frame_rate"          value="100" />
+           <arg name="frame_rate"          value="100" />-->
        </include>
-   </group>
+<!--   </group>-->
 
    <!-- Launch MAVROS -->
    <include file="$(find mavros)/launch/px4.launch" />
