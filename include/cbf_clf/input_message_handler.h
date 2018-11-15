@@ -22,6 +22,9 @@
 /*************
  * Variables *
  *************/
+ros::Subscriber zedPose;
+ros::NodeHandle node_get_pose;
+
 #define RAD2DEG 57.295779513
 // Pose Information
 double pose_tx, pose_ty, pose_tz; // Translations
@@ -82,8 +85,6 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
 // tf::Quaternion: q
 // tf::Matrix3x3: m = m(q)
 std::tuple<double, double, double, double, double, double, double> get_pose_Handler(std::string algorithm){
-    ros::Subscriber zedPose;
-    ros::NodeHandle node_get_pose;
 
     if (algorithm == "zed"){
     zedPose = node_get_pose.subscribe("/zed/pose", 1000, zed_pose_Callback);
