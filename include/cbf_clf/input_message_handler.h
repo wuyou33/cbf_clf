@@ -63,6 +63,8 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     pose_q_y = msg->pose.orientation.x;
     pose_q_z = msg->pose.orientation.x;
     pose_q_w = msg->pose.orientation.x;
+
+    ROS_INFO("Got some numbers: [%f], [%f], [%f], [%f], [%f], [%f], [%f]", pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
 }
 
 
@@ -85,6 +87,7 @@ std::tuple<double, double, double, double, double, double, double> get_pose_Hand
 
     if (algorithm == "zed"){
     zedPose = node_get_pose.subscribe("/zed/pose", 1000, zed_pose_Callback);
+    ROS_INFO("Got some more numbers: [%f], [%f], [%f], [%f], [%f], [%f], [%f]", pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
     ros::spinOnce();
     }
     // else if (alogrithm == "other"){
