@@ -24,16 +24,16 @@ int main(int argc, char** argv){
 
   ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
-  if (pose_algorithm == "zed"){
+  // if (pose_algorithm == "zed"){
     pose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
     ROS_INFO("Got some more numbers: [%f], [%f], [%f], [%f], [%f], [%f], [%f]", pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
-  }
-  else if (pose_algorithm == "other"){
-    // TODO
-  }
-  else{
-   ROS_ERROR("The called pose algortihm is not valid!");
-  }
+  // }
+  // else if (pose_algorithm == "other"){
+  //   // TODO
+  // }
+  // else{
+  //  ROS_ERROR("The called pose algortihm is not valid!");
+  // }
 
   tf2::Quaternion q(pose_q_x, pose_q_y, pose_q_z, pose_q_w);
   tf2::Matrix3x3 m(q);
@@ -47,6 +47,6 @@ int main(int argc, char** argv){
   // boost::this_thread::sleep(boost::posix_time::seconds(1));
     
   ros::spin();
-  loop_rate.sleep();
+  // loop_rate.sleep();
   return 0;
 }
