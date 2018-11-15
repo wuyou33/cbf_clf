@@ -16,7 +16,8 @@
 
 //using namespace std;
 
-int main(int argc, char** argv){
+int main(int argc, char** argv)
+{
 
   //Initizializing a ROS-node called "cbf_clf_controller"
 	ros::init(argc, argv, "cbf_clf_controller");
@@ -24,29 +25,18 @@ int main(int argc, char** argv){
 
   ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
-  // if (pose_algorithm == "zed"){
-    poseSubscriber = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
-    ROS_INFO("Got some more numbers: [%f], [%f], [%f], [%f], [%f], [%f], [%f]", pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
-  // }
-  // else if (pose_algorithm == "other"){
-  //   // TODO
-  // }
-  // else{
-  //  ROS_ERROR("The called pose algortihm is not valid!");
-  // }
 
-  // tf2::Quaternion q(pose_q_x, pose_q_y, pose_q_z, pose_q_w);
-  // tf2::Matrix3x3 m(q);
-
-  // m.getRPY(pose_roll, pose_pitch, pose_yaw);
-
-  ROS_INFO("Pose is x: [%f], y: [%f], z: [%f], R: [%f], P: [%f], Y: [%f]",
-    pose_tx, pose_ty, pose_tz,
-    pose_roll, pose_pitch, pose_yaw);
-
-  // boost::this_thread::sleep(boost::posix_time::seconds(1));
+  //while (ros::ok())
+  //{
     
-  ros::spin();
-  // loop_rate.sleep();
-  return 0;
+    // Update pose information
+    // ros::Subscriber zedPose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
+    zedPose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
+
+    ros::spin();
+    //loop_rate.sleep();
+  //}
+
+
+    return 0;
 }
