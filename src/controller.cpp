@@ -25,7 +25,6 @@ int main(int argc, char** argv)
 
   ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
-  ROS_ERROR("I'M ALIVE");
   while (ros::ok())
   {
     
@@ -34,8 +33,12 @@ int main(int argc, char** argv)
     zedPose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
     ROS_INFO("Subscribing");
 
+    ROS_INFO("Received pose: x: %.2f y: %.2f z: %.2f - R: %.2f P: %.2f Y: %.2f",
+             pose_tx, pose_ty, pose_tz,
+             pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
+
     ros::spinOnce();
-    //loop_rate.sleep();
+    loop_rate.sleep();
   }
 
 

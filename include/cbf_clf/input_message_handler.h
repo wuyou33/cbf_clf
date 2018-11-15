@@ -21,27 +21,20 @@
  *************/
 #define RAD2DEG 57.295779513
 // Pose Information
-double pose_tx;
-double pose_ty;
-double pose_tz;
-double pose_roll;
-double pose_pitch;
-double pose_yaw;
+double pose_tx, pose_ty, pose_tz;
+double pose_qx, pose_qy, pose_qz, pose_qw;
+double pose_roll, pose_pitch, pose_yaw;
 
 // Odometry Information
-double odom_tx;
-double odom_ty;
-double odom_tz;
-double odom_roll;
-double odom_pitch;
-double odom_yaw;
+double odom_tx, odom_ty, odom_tz;
+double odom_qx, odom_qy, odom_qz, odom_qw;
+double odom_roll, odom_pitch, odom_yaw;
 
 
 /*************
  * Variables *
  *************/
 //ZED Subscriber Callbacks
-
 void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
 
     // Camera position in map frame
@@ -50,53 +43,36 @@ void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
     odom_tz = msg->pose.pose.position.z;
 
     // Orientation quaternion
-    tf2::Quaternion q(
-        msg->pose.pose.orientation.x,
-        msg->pose.pose.orientation.y,
-        msg->pose.pose.orientation.z,
-        msg->pose.pose.orientation.w);
+    odom_qx = msg->pose.pose.orientation.x;
+    odom_qy = msg->pose.pose.orientation.y;
+    odom_qz = msg->pose.pose.orientation.z;
+    odom_qw = msg->pose.pose.orientation.w;
+    tf2::Quaternion q(odom_qx, odom_qy, odom_qz, odom_qw);
 
     // 3x3 Rotation matrix from quaternion
     tf2::Matrix3x3 m(q);
 
     // Roll Pitch and Yaw from rotation matrix
     m.getRPY(odom_roll, odom_pitch, odom_yaw);
-
-    // Output the measure
-    ROS_INFO("Received odom in '%s' frame : X: %.2f Y: %.2f Z: %.2f - R: %.2f P: %.2f Y: %.2f",
-             msg->header.frame_id.c_str(),
-             odom_tx, odom_ty, odom_tz,
-             odom_roll * RAD2DEG, odom_pitch * RAD2DEG, odom_yaw * RAD2DEG);
 }
 
 void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
-    ROS_WARN("Called Calback Function successful");
 
     // Camera position in map frame
     pose_tx = msg->pose.position.x;
     pose_ty = msg->pose.position.y;
     pose_tz = msg->pose.position.z;
-    ROS_WARN("Calculated pose_tx,y,z");
 
     // Orientation quaternion
-    tf2::Quaternion q(
-        msg->pose.orientation.x,
-        msg->pose.orientation.y,
-        msg->pose.orientation.z,
-        msg->pose.orientation.w);
-    ROS_WARN("Calculated pose_qx,y,z");
+    pose_qx = msg->pose.orientation.x;
+    pose_qy = msg->pose.orientation.y;
+    pose_qz = msg->pose.orientation.z;
+    pose_qw = msg->pose.orientation.w;
+    tf2::Quaternion q(pose_qx, pose_qy, pose_qz, pose_qw);
 
     // 3x3 Rotation matrix from quaternion
     tf2::Matrix3x3 m(q);
-    ROS_WARN("Calculated m(q)");
 
     // Roll Pitch and Yaw from rotation matrix
     m.getRPY(pose_roll, pose_pitch, pose_yaw);
-    ROS_WARN("Calculated R(q)");
-
-    // Output the measure
-    ROS_INFO("Received a pose in '%s' frame : X: %.2f Y: %.2f Z: %.2f - R: %.2f P: %.2f Y: %.2f",
-             msg->header.frame_id.c_str(),
-             pose_tx, pose_ty, pose_tz,
-             pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
 }
