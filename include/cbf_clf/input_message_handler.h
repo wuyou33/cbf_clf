@@ -64,7 +64,7 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     pose_q_z = msg->pose.orientation.x;
     pose_q_w = msg->pose.orientation.x;
 
-    ROS_INFO("Got some numbers: [%f], [%f], [%f], [%f], [%f], [%f], [%f]", pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
+    ROS_WARN("Got some numbers: [%f], [%f], [%f], [%f], [%f], [%f], [%f]", pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
 }
 
 
