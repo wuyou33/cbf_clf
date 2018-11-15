@@ -26,7 +26,8 @@
 /*************
  * Variables *
  *************/
-int loop_rate_ = 1; //Loop Rate of 10 Hz
+ros::Subscriber pose;
+int loop_rate_ = 10; //Loop Rate of 10 Hz
 std::string pose_algorithm = "zed";
 
 // Pose Information

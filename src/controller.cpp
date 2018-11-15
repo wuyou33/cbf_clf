@@ -21,7 +21,6 @@ int main(int argc, char** argv){
   //Initizializing a ROS-node called "cbf_clf_controller"
 	ros::init(argc, argv, "cbf_clf_controller");
   ros::NodeHandle node;
-  ros::Subscriber pose;
 
   ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
