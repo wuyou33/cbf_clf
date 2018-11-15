@@ -25,8 +25,36 @@ int main(int argc, char** argv){
   ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
   while(true){
-    std::string pose_algorithm = "zed";
-    get_pose(pose_algorithm);
+
+    if (pose_algorithm == "zed"){
+    pose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
+    ROS_INFO("Got some more numbers: [%f], [%f], [%f], [%f], [%f], [%f], [%f]", pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
+    ros::spinOnce();
+    }
+    // else if (alogrithm == "other"){
+    
+    // // TODO
+
+    // }
+    else{
+        ROS_ERROR("The called pose algortihm is not valid!");
+    }
+
+    tf2::Quaternion q(pose_q_x, pose_q_y, pose_q_z, pose_q_w);
+    tf2::Matrix3x3 m(q);
+    
+    m.getRPY(pose_roll, pose_pitch, pose_yaw);
+
+    pose_trans[1] = pose_tx;
+    pose_trans[2] = pose_ty;
+    pose_trans[3] = pose_tz;
+    pose_rot[1] = pose_roll;
+    pose_rot[2] = pose_pitch;
+    pose_rot[3] = pose_yaw;
+
+    ROS_INFO("Pose is x: [%f], y: [%f], z: [%f], R: [%f], P: [%f], Y: [%f]",
+      pose_tx, pose_ty, pose_tz,
+      pose_roll, pose_pitch, pose_yaw);
 
     boost::this_thread::sleep(boost::posix_time::seconds(1));
     

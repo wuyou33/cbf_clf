@@ -70,39 +70,4 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     ROS_WARN("Got some numbers: [%f], [%f], [%f], [%f], [%f], [%f], [%f]", pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
 }
 
-
-// General Functions
-
-// The function get_pose returns a tuple containing the current pose
-// std::tuple<double, double, double, double, double, double, double> get_pose_Handler(std::string algorithm);
-
-// General Functions
-
-// The function get_pose returns a tuple containing the current pose
-// The tuple is made from:
-// vector of doubles: pose_trans = {pose_tx, pose_ty, pose_tz}
-// vector of doubles: pose_rot = {pose_roll, pose_pitch, pose_yaw}
-// tf::Quaternion: q
-// tf::Matrix3x3: m = m(q)
-std::tuple<double, double, double, double, double, double, double> get_pose_Handler(std::string algorithm){
-
-    ros::NodeHandle node_get_Pose;
-
-    if (algorithm == "zed"){
-    get_Pose = node_get_Pose.subscribe("/zed/pose", 1000, zed_pose_Callback);
-    ROS_INFO("Got some more numbers: [%f], [%f], [%f], [%f], [%f], [%f], [%f]", pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
-    ros::spinOnce();
-    }
-    // else if (alogrithm == "other"){
-    
-    // // TODO
-
-    // }
-    else{
-        ROS_ERROR("The called pose algortihm is not valid!");
-    }
-
-    return std::make_tuple(pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
-}
-
 #endif

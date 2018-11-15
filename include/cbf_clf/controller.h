@@ -27,7 +27,8 @@
  * Variables *
  *************/
 int loop_rate_ = 1; //Loop Rate of 10 Hz
-ros::Subscriber zedPose;
+ros::Subscriber pose;
+std::string pose_algorithm = "zed";
 
 // Pose Information
 // double pose_tx, pose_ty, pose_tz; // Translations
@@ -48,22 +49,22 @@ double odom_rot[3];
  * Functions *
  *************/
 // void get_pose(std::string algorithm);
-void get_pose(std::string algorithm){
-    std::tie(pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w) = get_pose_Handler(algorithm);
+// void get_pose(std::string algorithm){
+//     std::tie(pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w) = get_pose_Handler(algorithm);
 
-    tf2::Quaternion q(pose_q_x, pose_q_y, pose_q_z, pose_q_w);
-    tf2::Matrix3x3 m(q);
+//     tf2::Quaternion q(pose_q_x, pose_q_y, pose_q_z, pose_q_w);
+//     tf2::Matrix3x3 m(q);
     
-    m.getRPY(pose_roll, pose_pitch, pose_yaw);
+//     m.getRPY(pose_roll, pose_pitch, pose_yaw);
 
-    pose_trans[1] = pose_tx;
-    pose_trans[2] = pose_ty;
-    pose_trans[3] = pose_tz;
-    pose_rot[1] = pose_roll;
-    pose_rot[2] = pose_pitch;
-    pose_rot[3] = pose_yaw;
+//     pose_trans[1] = pose_tx;
+//     pose_trans[2] = pose_ty;
+//     pose_trans[3] = pose_tz;
+//     pose_rot[1] = pose_roll;
+//     pose_rot[2] = pose_pitch;
+//     pose_rot[3] = pose_yaw;
 
-    ROS_INFO("Pose is x: [%f], y: [%f], z: [%f], R: [%f], P: [%f], Y: [%f]",
-      pose_tx, pose_ty, pose_tz,
-      pose_roll, pose_pitch, pose_yaw);
-}
+//     ROS_INFO("Pose is x: [%f], y: [%f], z: [%f], R: [%f], P: [%f], Y: [%f]",
+//       pose_tx, pose_ty, pose_tz,
+//       pose_roll, pose_pitch, pose_yaw);
+// }
