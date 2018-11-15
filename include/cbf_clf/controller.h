@@ -18,6 +18,8 @@
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2/LinearMath/Matrix3x3.h"
 
+#include <boost/thread/thread.hpp>
+
 // Custom Header Files
 #include "input_message_handler.h"
 

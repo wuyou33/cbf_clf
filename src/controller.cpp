@@ -27,6 +27,8 @@ int main(int argc, char** argv){
   while(true){
     std::string pose_algorithm = "zed";
     get_pose(pose_algorithm);
+
+    boost::this_thread::sleep(boost::posix_time::seconds(1));
     
 
   }
