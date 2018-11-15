@@ -16,8 +16,7 @@
 
 //using namespace std;
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv){
 
   //Initizializing a ROS-node called "cbf_clf_controller"
 	ros::init(argc, argv, "cbf_clf_controller");
@@ -25,18 +24,13 @@ int main(int argc, char** argv)
 
   ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
-
-  //while (ros::ok())
-  //{
+  while(true){
+    std::string pose_algorithm = "zed";
+    get_pose(pose_algorithm);
     
-    // Update pose information
-    // ros::Subscriber zedPose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
-    zedPose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
 
-    ros::spin();
-    //loop_rate.sleep();
-  //}
-
+  }
+  
 
     return 0;
 }
