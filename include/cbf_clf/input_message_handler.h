@@ -22,8 +22,8 @@
 /*************
  * Variables *
  *************/
+
 ros::Subscriber get_Pose;
-ros::NodeHandle node_get_pose;
 
 #define RAD2DEG 57.295779513
 // Pose Information
@@ -86,8 +86,10 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
 // tf::Matrix3x3: m = m(q)
 std::tuple<double, double, double, double, double, double, double> get_pose_Handler(std::string algorithm){
 
+    ros::NodeHandle node_get_Pose;
+
     if (algorithm == "zed"){
-    get_Pose = node_get_pose.subscribe("/zed/pose", 1000, zed_pose_Callback);
+    get_Pose = node_get_Pose.subscribe("/zed/pose", 1000, zed_pose_Callback);
     ROS_INFO("Got some more numbers: [%f], [%f], [%f], [%f], [%f], [%f], [%f]", pose_tx, pose_ty, pose_tz, pose_q_x, pose_q_y, pose_q_z, pose_q_w);
     ros::spinOnce();
     }
