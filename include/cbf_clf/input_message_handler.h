@@ -95,7 +95,7 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     ROS_WARN("Calculated R(q)");
 
     // Output the measure
-    ROS_INFO("Received pose in '%s' frame : X: %.2f Y: %.2f Z: %.2f - R: %.2f P: %.2f Y: %.2f",
+    ROS_INFO("Received a pose in '%s' frame : X: %.2f Y: %.2f Z: %.2f - R: %.2f P: %.2f Y: %.2f",
              msg->header.frame_id.c_str(),
              pose_tx, pose_ty, pose_tz,
              pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
