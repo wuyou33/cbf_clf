@@ -25,7 +25,9 @@ int main(int argc, char** argv)
 
   ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
+  while(true){
   ROS_ERROR("I'M ALIVE");
+  }
   //while (ros::ok())
   //{
     
