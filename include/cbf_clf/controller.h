@@ -62,6 +62,6 @@ void get_pose(std::string algorithm){
     pose_rot[3] = pose_yaw;
 
     ROS_INFO("Pose is x: [%f], y: [%f], z: [%f], R: [%f], P: [%f], Y: [%f]",
-      pose_trans[1], pose_trans[2], pose_trans[3],
-      pose_rot[1], pose_rot[2], pose_rot[3]);
+      pose_tx, pose_ty, pose_tz,
+      pose_roll, pose_pitch, pose_yaw);
 }
