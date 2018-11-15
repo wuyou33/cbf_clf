@@ -27,7 +27,7 @@
  * Variables *
  *************/
 int loop_rate_ = 1; //Loop Rate of 10 Hz
-ros::Subscriber zedPose;
+//ros::Subscriber zedPose;
 
 // Pose Information
 // double pose_tx, pose_ty, pose_tz; // Translations
