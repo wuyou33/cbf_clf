@@ -89,7 +89,7 @@ std::tuple<double, double, double, double, double, double, double> get_pose_Hand
     ros::NodeHandle node_get_Pose;
 
     if (algorithm == "zed"){
-    subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1000, zed_pose_Callback);
+    subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1, zed_pose_Callback);
     ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
         imh_pose_tx, imh_pose_ty, imh_pose_tz,
         imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
