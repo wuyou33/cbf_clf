@@ -61,6 +61,7 @@ void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
 }
 
 void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
+    ROS_INFO("Subscriber called");
     // Camera position in map frame
     imh_pose_tx = msg->pose.position.x;
     imh_pose_ty = msg->pose.position.y;
