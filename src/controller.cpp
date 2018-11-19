@@ -14,7 +14,6 @@
 
 #include "../include/cbf_clf/controller.h"
 
-//using namespace std;
 int main(int argc, char** argv){
     //Initizializing a ROS-node called "cbf_clf_controller"
     ros::init(argc, argv, "cbf_clf_controller");
