@@ -26,6 +26,10 @@
 
 ros::Subscriber subscriber_get_Pose;
 
+std::string pose_algorithm = "zed";
+
+int imh_loop_rate_ = 60;
+
 // Pose Information
 double imh_pose_tx, imh_pose_ty, imh_pose_tz;
 double imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw;
@@ -80,23 +84,23 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     imh_pose_m.getRPY(imh_pose_roll, imh_pose_pitch, imh_pose_yaw);
 }
 
-std::tuple<double, double, double, double, double, double, double> get_pose_Handler(std::string algorithm){
-    // Create node Handler
-    ros::NodeHandle node_get_Pose;
+std::tuple<double, double, double, double, double, double, double> get_pose_Handler(){
+    // // Create node Handler
+    // ros::NodeHandle node_get_Pose;
 
-    if (algorithm == "zed"){
-        subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1, zed_pose_Callback);
-        ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-            imh_pose_tx, imh_pose_ty, imh_pose_tz,
-            imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-        ros::spinOnce();
-    }
-    // else if (alogrithm == "other"){
-    // // TODO
+    // if (algorithm == "zed"){
+    //     subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1, zed_pose_Callback);
+    //     ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
+    //         imh_pose_tx, imh_pose_ty, imh_pose_tz,
+    //         imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
+    //     ros::spinOnce();
     // }
-    else{
-        ROS_ERROR("The called pose algortihm is not valid!");
-    }
+    // // else if (alogrithm == "other"){
+    // // // TODO
+    // // }
+    // else{
+    //     ROS_ERROR("The called pose algortihm is not valid!");
+    // }
 
     return std::make_tuple(imh_pose_tx, imh_pose_ty, imh_pose_tz, imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
 }
