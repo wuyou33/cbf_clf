@@ -1,6 +1,7 @@
 <launch>
     <!-- Launch CBF_CLF -->
     <node name="controller" pkg="cbf_clf" type="controller" output="screen"/>
+    <node name="input_message_handler" pkg="cbf_clf" type="input_message_handler" output="screen"/>
 
     <!-- Launch  ZED Wrapper-->
 <!-- <group ns="zed">
