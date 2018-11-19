@@ -78,6 +78,8 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
 
     // Roll Pitch and Yaw from rotation matrix
     imh_pose_m.getRPY(imh_pose_roll, imh_pose_pitch, imh_pose_yaw);
+    int seq  = msg->header.seq;
+    ROS_INFO("Seq: [%i]", seq);
 }
 
 std::tuple<double, double, double, double, double, double, double> get_pose_Handler(std::string algorithm){
@@ -85,11 +87,11 @@ std::tuple<double, double, double, double, double, double, double> get_pose_Hand
     ros::NodeHandle node_get_Pose;
 
     if (algorithm == "zed"){
-    subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1, zed_pose_Callback);
-    // ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-    //     imh_pose_tx, imh_pose_ty, imh_pose_tz,
-    //     imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-    ros::spinOnce();
+        subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1, zed_pose_Callback);
+        // ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
+        //     imh_pose_tx, imh_pose_ty, imh_pose_tz,
+        //     imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
+        ros::spinOnce();
     }
     // else if (alogrithm == "other"){
     // // TODO
