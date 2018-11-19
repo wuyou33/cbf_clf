@@ -41,7 +41,6 @@ double imh_odom_roll, imh_odom_pitch, imh_odom_yaw;
  *************/
 //ZED Subscriber Callbacks
 void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
-
     // Camera position in map frame
     imh_odom_tx = msg->pose.pose.position.x;
     imh_odom_ty = msg->pose.pose.position.y;
@@ -62,7 +61,6 @@ void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
 }
 
 void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
-
     // Camera position in map frame
     imh_pose_tx = msg->pose.position.x;
     imh_pose_ty = msg->pose.position.y;
@@ -83,20 +81,18 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
 }
 
 std::tuple<double, double, double, double, double, double, double> get_pose_Handler(std::string algorithm){
-
+    // Create node Handler
     ros::NodeHandle node_get_Pose;
 
     if (algorithm == "zed"){
     subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1000, zed_pose_Callback);
-    ROS_DEBUG("Recieved RAW pose data: [%.4f], [%.4f], [%.4f], [%.4f], [%.4f], [%.4f], [%.4f]",
+    ROS_INFO("Recieved RAW pose data: [%.4f], [%.4f], [%.4f], [%.4f], [%.4f], [%.4f], [%.4f]",
         imh_pose_tx, imh_pose_ty, imh_pose_tz,
         imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
     ros::spinOnce();
     }
     // else if (alogrithm == "other"){
-    
     // // TODO
-
     // }
     else{
         ROS_ERROR("The called pose algortihm is not valid!");
