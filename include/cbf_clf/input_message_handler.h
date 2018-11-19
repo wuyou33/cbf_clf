@@ -78,8 +78,6 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
 
     // Roll Pitch and Yaw from rotation matrix
     imh_pose_m.getRPY(imh_pose_roll, imh_pose_pitch, imh_pose_yaw);
-    unsigned int seq  = msg->header.seq;
-    ROS_INFO(seq);
 }
 
 std::tuple<double, double, double, double, double, double, double> get_pose_Handler(std::string algorithm){
@@ -91,7 +89,7 @@ std::tuple<double, double, double, double, double, double, double> get_pose_Hand
         // ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
         //     imh_pose_tx, imh_pose_ty, imh_pose_tz,
         //     imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-        ros::spinOnce();
+        // ros::spinOnce();
     }
     // else if (alogrithm == "other"){
     // // TODO

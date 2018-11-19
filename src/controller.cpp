@@ -29,7 +29,8 @@ int main(int argc, char** argv){
             pose_tx, pose_ty, pose_tz,
             pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
 
-        ros::spinOnce();
+        // ros::spinOnce();
+        spinner.start();
         loop_rate.sleep();
     }
 
