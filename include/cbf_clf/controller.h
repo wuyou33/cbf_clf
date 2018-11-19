@@ -60,7 +60,7 @@ tf2::Matrix3x3 odom_m(odom_q);
     // pose_rot[2] = pose_pitch;
     // pose_rot[3] = pose_yaw;
 
-    ROS_INFO("Pose is x: [%f], y: [%f], z: [%f], R: [%f], P: [%f], Y: [%f]",
-      pose_tx, pose_ty, pose_tz,
-      pose_roll, pose_pitch, pose_yaw);
+    // ROS_DEBUG("Pose is x: [%.2f], y: [%.2f], z: [%.2f], R: [%.2f], P: [%.2f], Y: [%.2f]",
+    //   pose_tx, pose_ty, pose_tz,
+    //   pose_roll, pose_pitch, pose_yaw);
 }
