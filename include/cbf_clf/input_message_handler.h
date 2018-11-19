@@ -6,11 +6,14 @@
 #include <string>
 #include <cmath>
 #include <sstream>
+#include <tuple>
+
+#include "std_msgs/String.h"
 
 #include "ros/ros.h"
 
-#include "std_msgs/String.h"
 #include "geometry_msgs/PoseStamped.h"
+
 #include "nav_msgs/Odometry.h"
 
 #include "tf2/LinearMath/Quaternion.h"
@@ -20,83 +23,80 @@
  * Variables *
  *************/
 #define RAD2DEG 57.295779513
+
+ros::Subscriber subscriber_get_Pose;
+
 // Pose Information
-double pose_tx;
-double pose_ty;
-double pose_tz;
-double pose_roll;
-double pose_pitch;
-double pose_yaw;
+double imh_pose_tx, imh_pose_ty, imh_pose_tz;
+double imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw;
+double imh_pose_roll, imh_pose_pitch, imh_pose_yaw;
 
 // Odometry Information
-double odom_tx;
-double odom_ty;
-double odom_tz;
-double odom_roll;
-double odom_pitch;
-double odom_yaw;
-
+double imh_odom_tx, imh_odom_ty, imh_odom_tz;
+double imh_odom_qx, imh_odom_qy, imh_odom_qz, imh_odom_qw;
+double imh_odom_roll, imh_odom_pitch, imh_odom_yaw;
 
 /*************
  * Variables *
  *************/
 //ZED Subscriber Callbacks
-
 void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
-
     // Camera position in map frame
-    odom_tx = msg->pose.pose.position.x;
-    odom_ty = msg->pose.pose.position.y;
-    odom_tz = msg->pose.pose.position.z;
+    imh_odom_tx = msg->pose.pose.position.x;
+    imh_odom_ty = msg->pose.pose.position.y;
+    imh_odom_tz = msg->pose.pose.position.z;
 
     // Orientation quaternion
-    tf2::Quaternion q(
-        msg->pose.pose.orientation.x,
-        msg->pose.pose.orientation.y,
-        msg->pose.pose.orientation.z,
-        msg->pose.pose.orientation.w);
+    imh_odom_qx = msg->pose.pose.orientation.x;
+    imh_odom_qy = msg->pose.pose.orientation.y;
+    imh_odom_qz = msg->pose.pose.orientation.z;
+    imh_odom_qw = msg->pose.pose.orientation.w;
+    tf2::Quaternion imh_odom_q(imh_odom_qx, imh_odom_qy, imh_odom_qz, imh_odom_qw);
 
     // 3x3 Rotation matrix from quaternion
-    tf2::Matrix3x3 m(q);
+    tf2::Matrix3x3 imh_odom_m(imh_odom_q);
 
     // Roll Pitch and Yaw from rotation matrix
-    m.getRPY(odom_roll, odom_pitch, odom_yaw);
-
-    // Output the measure
-    ROS_INFO("Received odom in '%s' frame : X: %.2f Y: %.2f Z: %.2f - R: %.2f P: %.2f Y: %.2f",
-             msg->header.frame_id.c_str(),
-             odom_tx, odom_ty, odom_tz,
-             odom_roll * RAD2DEG, odom_pitch * RAD2DEG, odom_yaw * RAD2DEG);
+    imh_odom_m.getRPY(imh_odom_roll, imh_odom_pitch, imh_odom_yaw);
 }
 
 void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
-    ROS_WARN("Called Calback Function successful");
-
     // Camera position in map frame
-    pose_tx = msg->pose.position.x;
-    pose_ty = msg->pose.position.y;
-    pose_tz = msg->pose.position.z;
-    ROS_WARN("Calculated pose_tx,y,z");
+    imh_pose_tx = msg->pose.position.x;
+    imh_pose_ty = msg->pose.position.y;
+    imh_pose_tz = msg->pose.position.z;
 
     // Orientation quaternion
-    tf2::Quaternion q(
-        msg->pose.orientation.x,
-        msg->pose.orientation.y,
-        msg->pose.orientation.z,
-        msg->pose.orientation.w);
-    ROS_WARN("Calculated pose_qx,y,z");
+    imh_pose_qx = msg->pose.orientation.x;
+    imh_pose_qy = msg->pose.orientation.y;
+    imh_pose_qz = msg->pose.orientation.z;
+    imh_pose_qw = msg->pose.orientation.w;
+    tf2::Quaternion imh_pose_q(imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
 
     // 3x3 Rotation matrix from quaternion
-    tf2::Matrix3x3 m(q);
-    ROS_WARN("Calculated m(q)");
+    tf2::Matrix3x3 imh_pose_m(imh_pose_q);
 
     // Roll Pitch and Yaw from rotation matrix
-    m.getRPY(pose_roll, pose_pitch, pose_yaw);
-    ROS_WARN("Calculated R(q)");
+    imh_pose_m.getRPY(imh_pose_roll, imh_pose_pitch, imh_pose_yaw);
+}
 
-    // Output the measure
-    ROS_INFO("Received a pose in '%s' frame : X: %.2f Y: %.2f Z: %.2f - R: %.2f P: %.2f Y: %.2f",
-             msg->header.frame_id.c_str(),
-             pose_tx, pose_ty, pose_tz,
-             pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
+std::tuple<double, double, double, double, double, double, double> get_pose_Handler(std::string algorithm){
+    // Create node Handler
+    ros::NodeHandle node_get_Pose;
+
+    if (algorithm == "zed"){
+        subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1, zed_pose_Callback);
+        ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
+            imh_pose_tx, imh_pose_ty, imh_pose_tz,
+            imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
+        ros::spinOnce();
+    }
+    // else if (alogrithm == "other"){
+    // // TODO
+    // }
+    else{
+        ROS_ERROR("The called pose algortihm is not valid!");
+    }
+
+    return std::make_tuple(imh_pose_tx, imh_pose_ty, imh_pose_tz, imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
 }

@@ -15,29 +15,24 @@
 #include "../include/cbf_clf/controller.h"
 
 //using namespace std;
+int main(int argc, char** argv){
+    //Initizializing a ROS-node called "cbf_clf_controller"
+    ros::init(argc, argv, "cbf_clf_controller");
+    ros::NodeHandle node;
 
-int main(int argc, char** argv)
-{
+    ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
-  //Initizializing a ROS-node called "cbf_clf_controller"
-	ros::init(argc, argv, "cbf_clf_controller");
-  ros::NodeHandle node;
+    if(!ros::ok()) ROS_ERROR("ROS not ok! Shutting down!");
+    while (ros::ok()){
+        // Update pose information
+        get_pose(pose_algorithm);
+        ROS_INFO("Pose: x: [%.2f] y: [%.2f] z: [%.2f] - R: [%.2f] P: [%.2f] Y: [%.2f]",
+            pose_tx, pose_ty, pose_tz,
+            pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
 
-  ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
 
-  ROS_ERROR("I'M ALIVE");
-  while (ros::ok())
-  {
-    
-    // Update pose information
-    // ros::Subscriber zedPose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
-    zedPose = node.subscribe("/zed/pose", 1000, zed_pose_Callback);
-    ROS_INFO("Subscribing");
-
-    ros::spinOnce();
-    //loop_rate.sleep();
-  }
-
-
-    return 0;
+return 0;
 }

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(cbf_clf)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -196,6 +196,7 @@ include_directories(
 # catkin_add_nosetests(test)
 
 add_executable(controller
+  include/cbf_clf/output_message_handler.h
   src/controller.cpp
   include/cbf_clf/controller.h
   src/controller.cpp
