@@ -25,12 +25,11 @@ int main(int argc, char** argv){
     while (ros::ok()){
         // Update pose information
         get_pose(pose_algorithm);
-        ROS_INFO("Received pose: x: %.2f y: %.2f z: %.2f - R: %.2f P: %.2f Y: %.2f",
+        ROS_INFO("Pose: x: [%.2f] y: [%.2f] z: [%.2f] - R: [%.2f] P: [%.2f] Y: [%.2f]",
             pose_tx, pose_ty, pose_tz,
             pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
 
         ros::spinOnce();
-        ROS_INFO("Spun once");
         loop_rate.sleep();
     }
 
