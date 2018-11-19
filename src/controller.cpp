@@ -22,6 +22,7 @@ int main(int argc, char** argv){
 
     ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
+    if(!ros::ok()) ROS_ERROR("ROS not ok! Shutting down!");
     while (ros::ok()){
         // Update pose information
         get_pose(pose_algorithm);
