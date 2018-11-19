@@ -79,7 +79,7 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     // Roll Pitch and Yaw from rotation matrix
     imh_pose_m.getRPY(imh_pose_roll, imh_pose_pitch, imh_pose_yaw);
     unsigned int seq  = msg->header.seq;
-    ROS_INFO("Seq: [%i]", seq);
+    ROS_INFO(seq);
 }
 
 std::tuple<double, double, double, double, double, double, double> get_pose_Handler(std::string algorithm){
