@@ -5,16 +5,19 @@
 #include <stdio.h>
 #include <string>
 #include <cmath>
-#include "ros/ros.h"
-#include "std_msgs/String.h"
 #include <sstream>
 #include <tuple>
+
+#include "std_msgs/String.h"
+
+#include "ros/ros.h"
 
 #include "geometry_msgs/PoseStamped.h"
 #include "nav_msgs/Odometry.h"
 
 // Custom Header Files
 #include "input_message_handler.h"
+#include "output_message_handler.h"
 
 /*************
  * Variables *
@@ -43,10 +46,12 @@ tf2::Matrix3x3 odom_m(odom_q);
  void get_pose(std::string algorithm){
     std::tie(pose_tx, pose_ty, pose_tz, pose_qx, pose_qy, pose_qz, pose_qw) = get_pose_Handler(algorithm);
 
-    tf2::Quaternion q(pose_qx, pose_qy, pose_qz, pose_qw);
-    tf2::Matrix3x3 m(q);
+    // tf2::Quaternion pose_q(pose_qx, pose_qy, pose_qz, pose_qw);
+    // tf2::Matrix3x3 pose_m(pose_q);
+    tf2::Quaternion pose_q(pose_qx, pose_qy, pose_qz, pose_qw);
+    tf2::Matrix3x3 pose_m(pose_q);
     
-    m.getRPY(pose_roll, pose_pitch, pose_yaw);
+    pose_m.getRPY(pose_roll, pose_pitch, pose_yaw);
 
     // pose_trans[1] = pose_tx;
     // pose_trans[2] = pose_ty;

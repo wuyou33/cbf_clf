@@ -8,10 +8,12 @@
 #include <sstream>
 #include <tuple>
 
+#include "std_msgs/String.h"
+
 #include "ros/ros.h"
 
-#include "std_msgs/String.h"
 #include "geometry_msgs/PoseStamped.h"
+
 #include "nav_msgs/Odometry.h"
 
 #include "tf2/LinearMath/Quaternion.h"

@@ -196,6 +196,7 @@ include_directories(
 # catkin_add_nosetests(test)
 
 add_executable(controller
+  include/cbf_clf/output_message_handler.h
   src/controller.cpp
   include/cbf_clf/controller.h
   src/controller.cpp
