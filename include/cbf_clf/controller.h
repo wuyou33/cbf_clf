@@ -25,7 +25,6 @@
 ros::Subscriber zedPose;
 int loop_rate_ = 1; //Loop Rate of 10 Hz
 std::string pose_algorithm = "zed";
-ros::AsyncSpinner spinner(0);
 
 // Pose Information
 double pose_tx, pose_ty, pose_tz;
