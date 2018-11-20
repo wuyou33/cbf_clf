@@ -28,7 +28,9 @@ int main(int argc, char** argv){
         
         ROS_INFO("Service Client Function called");
         cbf_clf::srv_get_pose srv_res;
+        srv_res.request.dummy = 0.0;
         client_get_pose = node.serviceClient<cbf_clf::srv_get_pose>("srv_get_pose");
+        client_get_pose.call(srv_res);
         ROS_INFO("Service Client called");
         pose_tx = srv_res.response.x;
         pose_ty = srv_res.response.y;
