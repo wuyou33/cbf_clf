@@ -31,8 +31,8 @@ std::string pose_algorithm = "zed";
 int imh_loop_rate_ = 60;
 
 // Pose Information
-double *imh_pose_tx, *imh_pose_ty, *imh_pose_tz;
-double *imh_pose_qx, *imh_pose_qy, *imh_pose_qz, *imh_pose_qw;
+const double *imh_pose_tx, *imh_pose_ty, *imh_pose_tz;
+const double *imh_pose_qx, *imh_pose_qy, *imh_pose_qz, *imh_pose_qw;
 double imh_pose_roll, imh_pose_pitch, imh_pose_yaw;
 
 // Odometry Information
@@ -66,23 +66,15 @@ void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
 
 void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     // Camera position in map frame
-    double tmp;
-    tmp = msg->pose.position.x;
-    imh_pose_tx = &tmp;
-    tmp = msg->pose.position.y;
-    imh_pose_ty = &tmp;
-    tmp = msg->pose.position.z;
-    imh_pose_tz = &tmp;
+    imh_pose_tx = &msg->pose.position.x;
+    imh_pose_ty = &msg->pose.position.y;
+    imh_pose_tz = &msg->pose.position.z;
 
     // Orientation quaternion
-    tmp = msg->pose.orientation.x;
-    imh_pose_qx = &tmp;
-    tmp = msg->pose.orientation.y;
-    imh_pose_qy = &tmp;
-    tmp = msg->pose.orientation.z;
-    imh_pose_qz = &tmp;
-    tmp = msg->pose.orientation.w;
-    imh_pose_qw = &tmp;
+    imh_pose_qx = &msg->pose.orientation.x;
+    imh_pose_qy = &msg->pose.orientation.y;
+    imh_pose_qz = &msg->pose.orientation.z;
+    imh_pose_qw = &msg->pose.orientation.w;
     // tf2::Quaternion imh_pose_q(imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
 
     // 3x3 Rotation matrix from quaternion
