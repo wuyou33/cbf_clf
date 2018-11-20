@@ -3,7 +3,7 @@
 int main(int argc, char** argv){
     //Initizializing a ROS-node called "cbf_clf_imh"
     ros::init(argc, argv, "cbf_clf_input_message_handler");
-    // ros::NodeHandle node_imh;
+    ros::NodeHandle node_imh;
 
     ros::Rate loop_rate(imh_loop_rate_); //Needs to be declared AFTER the NodeHandle !
 

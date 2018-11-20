@@ -24,7 +24,6 @@
  *************/
 #define RAD2DEG 57.295779513
 
-ros::NodeHandle node_imh;
 ros::Subscriber subscriber_get_Pose;
 
 std::string pose_algorithm = "zed";
