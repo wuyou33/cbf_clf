@@ -79,7 +79,7 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
 
     // 3x3 Rotation matrix from quaternion
     tf2::Matrix3x3 imh_pose_m(imh_pose_q);
-)
+
     // Roll Pitch and Yaw from rotation matrix
     imh_pose_m.getRPY(imh_pose_roll, imh_pose_pitch, imh_pose_yaw);
 
