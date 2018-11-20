@@ -24,27 +24,7 @@ int main(int argc, char** argv){
     if(!ros::ok()) ROS_ERROR("ROS not ok! Shutting down!");
     while (ros::ok()){
         // Update pose information
-        
-        
-        ROS_INFO("Service Client Function called");
-        cbf_clf::srv_get_pose srv_res;
-        srv_res.request.dummy = 0.0;
-        client_get_pose = node.serviceClient<cbf_clf::srv_get_pose>("srv_get_pose");
-        client_get_pose.call(srv_res);
-        ROS_INFO("Service Client called");
-        pose_tx = srv_res.response.x;
-        pose_ty = srv_res.response.y;
-        pose_tz = srv_res.response.z;
-        pose_qx = srv_res.response.qx;
-        pose_qy = srv_res.response.qy;
-        pose_qz = srv_res.response.qz;
-        pose_qw = srv_res.response.qw;
-        ROS_INFO("Recieved: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-            pose_tx, pose_ty, pose_tz,
-            pose_qx, pose_qy, pose_qz, pose_qw);
-        tf2::Quaternion pose_q(pose_qx, pose_qy, pose_qz, pose_qw);
-        tf2::Matrix3x3 pose_m(pose_q);
-        pose_m.getRPY(pose_roll, pose_pitch, pose_yaw);
+        get_pose(node);
 
         ROS_INFO("Pose: x: [%.2f] y: [%.2f] z: [%.2f] - R: [%.2f] P: [%.2f] Y: [%.2f]",
             pose_tx, pose_ty, pose_tz,

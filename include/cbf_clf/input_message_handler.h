@@ -115,8 +115,6 @@ std::tuple<double, double, double, double, double, double, double> get_pose_Hand
 }
 
 bool srv_send_pose(cbf_clf::srv_get_pose::Request &rec, cbf_clf::srv_get_pose::Response &res){
-    ROS_INFO("Service call successful.");
-
     res.x = imh_pose_tx;
     res.y = imh_pose_ty;
     res.z = imh_pose_tz;
@@ -124,13 +122,6 @@ bool srv_send_pose(cbf_clf::srv_get_pose::Request &rec, cbf_clf::srv_get_pose::R
     res.qy = imh_pose_qy;
     res.qz = imh_pose_qz;
     res.qw = imh_pose_qw;
-
-    ROS_INFO("Set response values to: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-            imh_pose_tx, imh_pose_ty, imh_pose_tz,
-            imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-    ROS_INFO("Send response: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-            res.x, res.y, res.z,
-            res.qx, res.qy, res.qz, res.qw);
 
     return true;
 }
