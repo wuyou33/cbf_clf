@@ -106,9 +106,10 @@ std::tuple<double, double, double, double, double, double, double> get_pose_Hand
     // else{
     //     ROS_ERROR("The called pose algortihm is not valid!");
     // }
-    ROS_WARN("get_pose_Handler is called! Returning: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-        *imh_pose_tx, *imh_pose_ty, *imh_pose_tz,
-        *imh_pose_qx, *imh_pose_qy, *imh_pose_qz, *imh_pose_qw);
+    // ROS_WARN("get_pose_Handler is called! Returning: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
+    //     *imh_pose_tx, *imh_pose_ty, *imh_pose_tz,
+    //     *imh_pose_qx, *imh_pose_qy, *imh_pose_qz, *imh_pose_qw);
+    ROS_WARN("get_pose_Handler is called! Returning: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]", 0.0, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
     std::cout << imh_pose_tx << std::endl;
     // return std::make_tuple(*imh_pose_tx, *imh_pose_ty, *imh_pose_tz, *imh_pose_qx, *imh_pose_qy, *imh_pose_qz, *imh_pose_qw);
     return std::make_tuple(0.0, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
