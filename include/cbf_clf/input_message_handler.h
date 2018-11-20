@@ -66,7 +66,7 @@ void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
 
 void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     // Camera position in map frame
-    imh_pose_tx = msg->pose.position.x;
+    imh_pose_tx = double(msg->pose.position.x);
     imh_pose_ty = msg->pose.position.y;
     imh_pose_tz = msg->pose.position.z;
 
@@ -74,12 +74,12 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     imh_pose_qx = msg->pose.orientation.x;
     imh_pose_qy = msg->pose.orientation.y;
     imh_pose_qz = msg->pose.orientation.z;
-    imh_pose_qw = msg->pose.orientation.w;
+    imh_pose_qw = double(msg->pose.orientation.w);
     tf2::Quaternion imh_pose_q(imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
 
     // 3x3 Rotation matrix from quaternion
     tf2::Matrix3x3 imh_pose_m(imh_pose_q);
-
+)
     // Roll Pitch and Yaw from rotation matrix
     imh_pose_m.getRPY(imh_pose_roll, imh_pose_pitch, imh_pose_yaw);
 
