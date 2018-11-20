@@ -79,7 +79,7 @@ void send_pose(ros::NodeHandle node, double x = 0.0, double y = 0.0, double z = 
     client_recieve_pose = node.serviceClient<cbf_clf::srv_recieve_pose>("srv_recieve_pose");
     client_recieve_pose.call(srv_res);
 
-    bool status = srv_res.response.success;
+    bool status = (bool)srv_res.response.success;
     if(!status){
         ROS_WARN("Couldn't send calculated pose data!");
     }
