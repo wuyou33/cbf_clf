@@ -10,7 +10,7 @@
   <maintainer email="nvidia@todo.todo">nvidia</maintainer>  <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>TODO</license>  <!-- Url tags are optional, but multiple are allowed, one per tag -->
+  <license>BSD-3</license>  <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
   <!-- <url type="website">http://wiki.ros.org/cbf_clf</url> -->  <!-- Author tags are optional, multiple are allowed, one per tag -->
@@ -56,4 +56,7 @@
 <build_depend>mavros</build_depend>
 <build_export_depend>mavros</build_export_depend>
 <exec_depend>mavros</exec_depend>
+<build_depend>message_generation</build_depend>
+<build_export_depend>message_generation</build_export_depend>
+<exec_depend>message_runtime</exec_depend>
 </package>
