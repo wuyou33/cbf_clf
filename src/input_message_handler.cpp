@@ -17,6 +17,8 @@ int main(int argc, char** argv){
         ROS_ERROR("The called pose algortihm is not valid!");
     }
 
+    // service_send_Pose = node_imh.advertiseService("srv_get_pose", srv_send_pose);
+
     ros::spin();
     loop_rate.sleep();
 

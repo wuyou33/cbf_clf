@@ -25,14 +25,15 @@
 #define RAD2DEG 57.295779513
 
 ros::Subscriber subscriber_get_Pose;
+ros::ServiceServer service_send_Pose;
 
 std::string pose_algorithm = "zed";
 
 int imh_loop_rate_ = 60;
 
 // Pose Information
-const double *imh_pose_tx, *imh_pose_ty, *imh_pose_tz;
-const double *imh_pose_qx, *imh_pose_qy, *imh_pose_qz, *imh_pose_qw;
+double imh_pose_tx, imh_pose_ty, imh_pose_tz;
+double imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw;
 double imh_pose_roll, imh_pose_pitch, imh_pose_yaw;
 
 // Odometry Information
@@ -66,15 +67,15 @@ void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
 
 void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     // Camera position in map frame
-    imh_pose_tx = &msg->pose.position.x;
-    imh_pose_ty = &msg->pose.position.y;
-    imh_pose_tz = &msg->pose.position.z;
+    imh_pose_tx = msg->pose.position.x;
+    imh_pose_ty = msg->pose.position.y;
+    imh_pose_tz = msg->pose.position.z;
 
     // Orientation quaternion
-    imh_pose_qx = &msg->pose.orientation.x;
-    imh_pose_qy = &msg->pose.orientation.y;
-    imh_pose_qz = &msg->pose.orientation.z;
-    imh_pose_qw = &msg->pose.orientation.w;
+    imh_pose_qx = msg->pose.orientation.x;
+    imh_pose_qy = msg->pose.orientation.y;
+    imh_pose_qz = msg->pose.orientation.z;
+    imh_pose_qw = msg->pose.orientation.w;
     // tf2::Quaternion imh_pose_q(imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
 
     // 3x3 Rotation matrix from quaternion
@@ -84,8 +85,8 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     // imh_pose_m.getRPY(imh_pose_roll, imh_pose_pitch, imh_pose_yaw);
 
     ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-        *imh_pose_tx, *imh_pose_ty, *imh_pose_tz,
-        *imh_pose_qx, *imh_pose_qy, *imh_pose_qz, *imh_pose_qw);
+        imh_pose_tx, imh_pose_ty, imh_pose_tz,
+        imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
     std::cout << imh_pose_tx << std::endl;
 }
 
@@ -106,11 +107,18 @@ std::tuple<double, double, double, double, double, double, double> get_pose_Hand
     // else{
     //     ROS_ERROR("The called pose algortihm is not valid!");
     // }
-    // ROS_WARN("get_pose_Handler is called! Returning: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-    //     *imh_pose_tx, *imh_pose_ty, *imh_pose_tz,
-    //     *imh_pose_qx, *imh_pose_qy, *imh_pose_qz, *imh_pose_qw);
-    ROS_WARN("get_pose_Handler is called! Returning: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]", 0.0, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
+    ROS_WARN("get_pose_Handler is called! Returning: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
+        imh_pose_tx, imh_pose_ty, imh_pose_tz,
+        imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
     std::cout << imh_pose_tx << std::endl;
-    // return std::make_tuple(*imh_pose_tx, *imh_pose_ty, *imh_pose_tz, *imh_pose_qx, *imh_pose_qy, *imh_pose_qz, *imh_pose_qw);
-    return std::make_tuple(0.0, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
+    return std::make_tuple (imh_pose_tx, imh_pose_ty, imh_pose_tz, imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
 }
+
+// bool srv_send_pose(beginner_tutorials::AddTwoInts::Request  &req,
+//          beginner_tutorials::AddTwoInts::Response &res)
+// {
+//   res.sum = req.a + req.b;
+//   ROS_INFO("request: x=%ld, y=%ld", (long int)req.a, (long int)req.b);
+//   ROS_INFO("sending back response: [%ld]", (long int)res.sum);
+//   return true;
+// }
