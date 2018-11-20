@@ -83,7 +83,7 @@ bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_reci
     omh_pose_qz = req.qz;
     omh_pose_qw = req.qw;
 
-    res.success = true;
+    res.success = (bool)true;
 
     return true;
 }
