@@ -89,7 +89,6 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
         imh_pose_tx, imh_pose_ty, imh_pose_tz,
         imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-    std::cout << imh_pose_tx << std::endl;
 }
 
 std::tuple<double, double, double, double, double, double, double> get_pose_Handler(){
@@ -112,7 +111,6 @@ std::tuple<double, double, double, double, double, double, double> get_pose_Hand
     ROS_WARN("get_pose_Handler is called! Returning: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
         imh_pose_tx, imh_pose_ty, imh_pose_tz,
         imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-    std::cout << imh_pose_tx << std::endl;
     return std::make_tuple (imh_pose_tx, imh_pose_ty, imh_pose_tz, imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
 }
 
