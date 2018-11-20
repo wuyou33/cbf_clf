@@ -24,6 +24,7 @@
  *************/
 #define RAD2DEG 57.295779513
 
+ros::NodeHandle node_imh;
 ros::Subscriber subscriber_get_Pose;
 
 std::string pose_algorithm = "zed";
@@ -64,30 +65,6 @@ void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
     imh_odom_m.getRPY(imh_odom_roll, imh_odom_pitch, imh_odom_yaw);
 }
 
-
-std::tuple<double, double, double, double, double, double, double> get_pose_Handler(){
-    // // Create node Handler
-    // ros::NodeHandle node_get_Pose;
-
-    // if (algorithm == "zed"){
-    //     subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1, zed_pose_Callback);
-    //     ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-    //         imh_pose_tx, imh_pose_ty, imh_pose_tz,
-    //         imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-    //     ros::spinOnce();
-    // }
-    // // else if (alogrithm == "other"){
-    // // // TODO
-    // // }
-    // else{
-    //     ROS_ERROR("The called pose algortihm is not valid!");
-    // }
-    ROS_WARN("get_pose_Handler is called! Returning: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-             imh_pose_tx, imh_pose_ty, imh_pose_tz,
-             imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-    return std::make_tuple(imh_pose_tx, imh_pose_ty, imh_pose_tz, imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-}
-
 void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     // Camera position in map frame
     imh_pose_tx = double(msg->pose.position.x);
@@ -110,6 +87,27 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
         imh_pose_tx, imh_pose_ty, imh_pose_tz,
         imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
+}
 
-        std::tie(imh_pose_tx, imh_pose_ty, imh_pose_tz, imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw) = get_pose_Handler();
+std::tuple<double, double, double, double, double, double, double> get_pose_Handler(){
+    // // Create node Handler
+    // ros::NodeHandle node_get_Pose;
+
+    // if (algorithm == "zed"){
+    //     subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1, zed_pose_Callback);
+    //     ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
+    //         imh_pose_tx, imh_pose_ty, imh_pose_tz,
+    //         imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
+    //     ros::spinOnce();
+    // }
+    // // else if (alogrithm == "other"){
+    // // // TODO
+    // // }
+    // else{
+    //     ROS_ERROR("The called pose algortihm is not valid!");
+    // }
+    ROS_WARN("get_pose_Handler is called! Returning: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
+             imh_pose_tx, imh_pose_ty, imh_pose_tz,
+             imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
+    return std::make_tuple(imh_pose_tx, imh_pose_ty, imh_pose_tz, imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
 }
