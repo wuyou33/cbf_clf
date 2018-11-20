@@ -44,7 +44,7 @@ tf2::Matrix3x3 odom_m(odom_q);
 /*************
  * Functions *
  *************/
- void get_pose(ros::NodeHandle node){
+void get_pose(ros::NodeHandle node){
     cbf_clf::srv_get_pose srv_res;
     srv_res.request.dummy = 0.0;
 
@@ -63,8 +63,23 @@ tf2::Matrix3x3 odom_m(odom_q);
     tf2::Matrix3x3 pose_m(pose_q);
     
     pose_m.getRPY(pose_roll, pose_pitch, pose_yaw);
+}
 
-    ROS_INFO("Recieved: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-        pose_tx, pose_ty, pose_tz,
-        pose_qx, pose_qy, pose_qz, pose_qw);
+void send_pose(ros::NodeHandle node, double x = 0.0, double y = 0.0, double z = 1.0, double qx = 0.0, double qy = 0.0, double qz = 0.0, double qw = 1.0){
+    cbf_clf::srv_recieve_pose srv_res;
+    srv_res.request.x = x;
+    srv_res.request.y = y;
+    srv_res.request.z = z;
+    srv_res.request.qx = qx;
+    srv_res.request.qy = qy;
+    srv_res.request.qz = qz;
+    srv_res.request.qw = qw;
+
+    client_get_pose = node.serviceClient<cbf_clf::srv_get_pose>("srv_get_pose");
+    client_get_pose.call(srv_res);
+
+    bool status = srv_res.response.success;
+    if(!status){
+        ROS_WARN("Couldn't send calculated pose data!");
+    }
 }
