@@ -12,7 +12,7 @@
 * 
 */
 
-#include "../include/cbf_clf/controller.h"
+#include "cbf_clf/controller.h"
 
 int main(int argc, char** argv){
     //Initizializing a ROS-node called "cbf_clf_controller"
@@ -24,7 +24,7 @@ int main(int argc, char** argv){
     if(!ros::ok()) ROS_ERROR("ROS not ok! Shutting down!");
     while (ros::ok()){
         // Update pose information
-        get_pose();
+        get_pose(node);
         ROS_INFO("Pose: x: [%.2f] y: [%.2f] z: [%.2f] - R: [%.2f] P: [%.2f] Y: [%.2f]",
             pose_tx, pose_ty, pose_tz,
             pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);

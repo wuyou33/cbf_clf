@@ -1,11 +1,9 @@
-# Translation XYZ [meters]
+float32 dummy
+---
 float32 x
 float32 y
 float32 z
-# Orientation xyzw [Quaternions]
 float32 qx
 float32 qy
 float32 qz
 float32 qw
----
-bool done

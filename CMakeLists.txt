@@ -8,12 +8,12 @@ add_compile_options(-std=c++11)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  message_generation roscpp rospy std_msgs zed_wrapper mavros tf2 tf2_ros)
+  message_generation roscpp rospy std_msgs zed_wrapper mavros tf2 tf2_ros message_generation std_msgs)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
-
+ 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -99,9 +99,10 @@ generate_messages(DEPENDENCIES
 catkin_package(
   CATKIN_DEPENDS
   message_runtime
+  std_msgs
 #  INCLUDE_DIRS include
 #  LIBRARIES cbf_clf
-#  CATKIN_DEPENDS roscpp rospy std_msgs zed_wrapper
+  CATKIN_DEPENDS roscpp rospy std_msgs zed_wrapper
 #  DEPENDS system_lib
 )
 
@@ -113,8 +114,6 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
   include ${catkin_INCLUDE_DIRS}
-# include
-  ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library

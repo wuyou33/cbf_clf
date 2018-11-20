@@ -16,6 +16,8 @@
 
 #include "nav_msgs/Odometry.h"
 
+#include "cbf_clf/srv_get_pose.h"
+
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2/LinearMath/Matrix3x3.h"
 
@@ -114,11 +116,21 @@ std::tuple<double, double, double, double, double, double, double> get_pose_Hand
     return std::make_tuple (imh_pose_tx, imh_pose_ty, imh_pose_tz, imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
 }
 
-// bool srv_send_pose(beginner_tutorials::AddTwoInts::Request  &req,
-//          beginner_tutorials::AddTwoInts::Response &res)
-// {
-//   res.sum = req.a + req.b;
-//   ROS_INFO("request: x=%ld, y=%ld", (long int)req.a, (long int)req.b);
-//   ROS_INFO("sending back response: [%ld]", (long int)res.sum);
-//   return true;
-// }
+bool srv_send_pose(cbf_clf::srv_get_pose::Request &rec, cbf_clf::srv_get_pose::Response &res){
+  res.x = imh_pose_tx;
+  res.y = imh_pose_ty;
+  res.z = imh_pose_tz;
+  res.qx = imh_pose_qx;
+  res.qy = imh_pose_qy;
+  res.qz = imh_pose_qz;
+  res.qw = imh_pose_qw;
+
+  ROS_INFO("Set response values to: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
+        imh_pose_tx, imh_pose_ty, imh_pose_tz,
+        imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
+  ROS_INFO("Send response: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
+        res.x, res.y, res.z,
+        res.qx, res.qy, res.qz, res.qw);
+
+  return true;
+}
