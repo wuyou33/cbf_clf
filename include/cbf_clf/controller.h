@@ -25,6 +25,7 @@
  *************/
 ros::Subscriber zedPose;
 ros::ServiceClient client_get_pose;
+ros::ServiceClient client_recieve_pose;
 int loop_rate_ = 1; //Loop Rate of 10 Hz
 
 // Pose Information
@@ -75,8 +76,8 @@ void send_pose(ros::NodeHandle node, double x = 0.0, double y = 0.0, double z = 
     srv_res.request.qz = qz;
     srv_res.request.qw = qw;
 
-    client_get_pose = node.serviceClient<cbf_clf::srv_get_pose>("srv_get_pose");
-    client_get_pose.call(srv_res);
+    client_recieve_pose = node.serviceClient<cbf_clf::srv_recieve_pose>("srv_recieve_pose");
+    client_recieve_pose.call(srv_res);
 
     bool status = srv_res.response.success;
     if(!status){
