@@ -54,6 +54,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_service_files(FILES
   srv_get_pose.srv
   srv_recieve_pose.srv
+  srv_recieve_throttle.srv
 )
 
 ## Generate actions in the 'action' folder

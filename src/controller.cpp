@@ -30,6 +30,7 @@ int main(int argc, char** argv){
             pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
 
         send_pose(node); // TODO: ADD CALCULATED POSE AS FUNCTION ARGUMENTS!
+        send_throttle(node); // TODO: ADD CALCULATED THROTTLE AS FUNCTION ARGUMENTS!
 
         ros::spinOnce();
         loop_rate.sleep();

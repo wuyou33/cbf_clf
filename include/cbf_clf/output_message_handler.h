@@ -38,6 +38,10 @@ int pose_msg_count = 1;
 double omh_pose_tx, omh_pose_ty, omh_pose_tz;
 double omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw;
 
+// Thurst Information
+double omh_thrust;
+double omh_throttle;
+
 /*************
  * Functions *
  *************/
@@ -82,6 +86,14 @@ bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_reci
     omh_pose_qy = req.qy;
     omh_pose_qz = req.qz;
     omh_pose_qw = req.qw;
+
+    res.success = (bool)true;
+
+    return true;
+}
+
+bool srv_recieve_throttle(cbf_clf::srv_recieve_throttle::Request &req, cbf_clf::srv_recieve_throttle::Response &res){
+    omh_throttle = req.throttle
 
     res.success = (bool)true;
 

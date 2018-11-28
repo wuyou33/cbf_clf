@@ -9,9 +9,11 @@ int main(int argc, char** argv){
 
     // Publish Pose Data to MAVROS/MAVLink
     send_pose_Handler(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
+    send_throttle_Handler(node_omh, omh_throttle);
 
-    // Advertise a service which recieves the new pose data to be send to the Aerocore 2 via MAVROS/MAVLink
+    // Advertise a service which recieves the new pose/throttle data to be send to the Aerocore 2 via MAVROS/MAVLink
     service_recieve_Pose = node_omh.advertiseService("srv_recieve_pose", srv_recieve_pose);
+    service_recieve_Throttle = node_omh.advertiseService("srv_recieve_throttle", srv_recieve_throttle);
 
     ros::spin();
     loop_rate.sleep();

@@ -79,8 +79,21 @@ void send_pose(ros::NodeHandle node, double x = 0.0, double y = 0.0, double z = 
     client_recieve_pose = node.serviceClient<cbf_clf::srv_recieve_pose>("srv_recieve_pose");
     client_recieve_pose.call(srv_res);
 
-    bool status = (bool)srv_res.response.success;
-    if(!status){
-        ROS_WARN("Couldn't send calculated pose data!");
-    }
+    // bool status = (bool)srv_res.response.success;
+    // if(!status){
+    //     ROS_WARN("Couldn't send calculated pose data!");
+    // }
+}
+
+void send_throttle(ros::NodeHandle node, double throttle = 0.5){
+    cbf_clf::srv_recieve_throttle srv_res;
+    srv_res.request.throttle = throttle;
+
+    client_recieve_throttle = node.serviceClient<cbf_clf::srv_recieve_throttle>("srv_recieve_throttle");
+    client_recieve_throttle.call(srv_res);
+
+    // bool status = (bool)srv_res.response.success;
+    // if(!status){
+    //     ROS_WARN("Couldn't send calculated pose data!");
+    // }
 }
