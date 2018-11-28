@@ -16,17 +16,17 @@ The code dependce on the following packages:
 ### Prerequisites
 * The Jetson TX2 flashed to L4T 28.2.1 (via [JetPack 3.3](https://developer.nvidia.com/embedded/downloads#?search=jetpack "JetPack 3.3") with CUDA 9).
 * The Aerocore 2 with a [flashed Bootloader](https://www.gumstix.com/images/aerocore_2_user_manual.pdf "Aerocore 2 User Manual with Installtion Guide").
-* A computer running Ubuntu 16.04 LTS.
+* A computer running [Ubuntu 16.04 LTS](http://releases.ubuntu.com/16.04/ "Ubuntu 16.04") with [CUDA 9](https://developer.nvidia.com/cuda-90-download-archive "CUDA 9") installed. (CUDA 9 is only needed if you plan on installing the ZED SDK/ZED ROS wrapper on the computer.)
 ### Flashing the correct Firmware to the Aerocore 2
 In order to use the Aerocre 2, one must flash the correct firmware on it, based on the PX4-Firmware. The firmware which is to be used is forked from [the original PX4 Firmware](https://github.com/PX4/Firmware "PX4-Firmware"). It can be found in [this GitHub repo](https://github.com/JohannLange/Firmware "Modified PX4-Firmware for usage with Aerocore 2").
 Based on the [Building Guide](https://dev.px4.io/en/setup/building_px4.html "Building PX4 Software") and the [Development Guide for NuttX](https://dev.px4.io/en/setup/dev_env_linux_ubuntu.html#nuttx-based-hardware "Development Environment on Ubuntu LTS / Debian Linux") the following steps shall be perfomed to flash the correct firmware:
-#### Preparing the user
+#### Step 1 - Preparing the user
 In the first step we need to make the user part of the ```dialout```-group and remove the ```modemmanager```:
 ```
 sudo usermod -a -G dialout $USER
 sudo apt-get remove modemmanager
 ```
-#### Installing Dependencies
+#### Step 2 - Installing Dependencies
 Install necessary software and remove any old versions of the ```arm-none-eabi```-toolchain 
 ```
 sudo apt-get install python-serial openocd flex bison libncurses5-dev autoconf texinfo libftdi-dev libtool zlib1g-dev -y
@@ -44,19 +44,19 @@ if grep -Fxq "$exportline" ~/.profile; then echo nothing to do ; else echo $expo
 popd
 ```
 **Afterwards restart your machine!**
-#### Cloning the software
+#### Step 3- Cloning the software
 ```
 git clone https://github.com/JohannLange/Firmware.git
 cd Firmware && git submodule update --init --recursive
 ```
-#### Making/Building the firmware and uploading it
+#### Step - 4Making/Building the firmware and uploading it
 Now one can choose to upload the firmware via the ```make```-command or just build the firmware and upload the firmware-file via QGroundControl.
-##### Uploading via the ```make```-command
+##### Step 4.1 - Uploading via the ```make```-command
 Enter the following command and follow the on screen instructions.
 ```
 make aerocore2_default upload
 ```
-##### Upload via QGroundControl
+##### Step 4.2 - Upload via QGroundControl
 Execue the following command
 ```
 make aerocore2_default
@@ -75,7 +75,8 @@ sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C
 While we recommend using the full desktop installer, a different installer may be more suitable for you. In that case, please refer to the official [Installation Guide](http://wiki.ros.org/kinetic/Installation "ROS Kinetic Installtion Guide"). _Note: this may have an effect later, which will __not__ be covered by this installation guide!_
 Otherwise, we will assume, that the full desktop version of ROS kinetic is installed.
 ```
-sudo apt-get install ros-kinetic-desktop-full
+sudo apt-get update
+sudo apt-get install ros-kinetic-desktop-full -y
 ```
 #### Step 3 - Install ```rosdep```
 ```
@@ -92,7 +93,7 @@ sudo apt-get install python-rosinstall python-catkin-tools python-rosinstall-gen
 ```
 #### Step 6 - Creating the ROS Workspace
 ```
-mkdir -p ~\catkin_ws\src
+mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws
 ```
 From now on, __do not follow the official guide anymore!__
@@ -104,17 +105,13 @@ catkin build
 ### Installing the ZED SDK and the ZED ROS Wrapper
 #### Step 1 - Installing the ZED SDK
 In general, the [Installation Guide can be found here](https://www.stereolabs.com/docs/getting-started/installation/ "ZED SDK Installation Guide"), the corresponding [Downloads here](https://www.stereolabs.com/developers/release/ "Download ZED SDK"). While the this guide only covers the installation for the Jetson TX2, the steps are pretty much the same, just download the correct version of the ZED SDK. Be advised, that we are working with __CUDA 9__, thus, the support for CUDA 10 is not guaranteed.
-For the Jetson TX2:
+_For the Jetson TX2:_
 ```
-cd ~/ && wget https://download.stereolabs.com/zedsdk/2.7/tegrax2 && chmod +x ZED_SDK_Linux_*.run
+cd ~/ && wget https://download.stereolabs.com/zedsdk/2.7/tegrax2 && chmod +x tegrax2 && ./tegrax2
 ```
-For a computer running Ubuntu 16.04 LTS:
+_For a computer running Ubuntu 16.04 LTS:_
 ```
-cd ~/ && wget https://download.stereolabs.com/zedsdk/2.7/ubuntu16_cuda9 && chmod +x ZED_SDK_Linux_*.run
-```
-Afterwards, to start the ZED SDK use:
-```
-./ZED_SDK_Linux_*.run
+cd ~/ && wget https://download.stereolabs.com/zedsdk/2.7/ubuntu16_cuda9 && chmod +x ubuntu16_cuda9 && ./ubuntu16_cuda9
 ```
 As we are going to install the ZED ROS wrapper, starting the ZED SDK is no longer needed.
 #### Step 2 - Installing the ZED ROS Wrapper
