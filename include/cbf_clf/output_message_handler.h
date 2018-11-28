@@ -22,6 +22,7 @@
 #include "tf2/LinearMath/Matrix3x3.h"
 
 #include "cbf_clf/srv_recieve_pose.h"
+#include "cbf_clf/srv_recieve_throttle.h"
 
 /*************
  * Variables *
@@ -29,6 +30,7 @@
 ros::Publisher pub_pose;
 ros::Publisher pub_throttle;
 ros::ServiceServer service_recieve_Pose;
+ros::ServiceServer service_recieve_Throttle;
 
 int omh_loop_rate_ = 60;
 
@@ -93,7 +95,7 @@ bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_reci
 }
 
 bool srv_recieve_throttle(cbf_clf::srv_recieve_throttle::Request &req, cbf_clf::srv_recieve_throttle::Response &res){
-    omh_throttle = req.throttle
+    omh_throttle = req.throttle;
 
     res.success = (bool)true;
 

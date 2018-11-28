@@ -26,6 +26,7 @@
 ros::Subscriber zedPose;
 ros::ServiceClient client_get_pose;
 ros::ServiceClient client_recieve_pose;
+ros::ServiceClient client_recieve_throttle;
 int loop_rate_ = 1; //Loop Rate of 10 Hz
 
 // Pose Information
