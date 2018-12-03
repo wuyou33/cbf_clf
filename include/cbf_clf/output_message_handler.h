@@ -64,6 +64,7 @@ void send_pose_Handler(ros::NodeHandle node_omh, double x, double y, double z, d
     cmd_msg_pose.pose.orientation.w = qw;
 
     pub_pose.publish(cmd_msg_pose);
+    ROS_INFO("Publishing /mavros/setpoint_attitude/attitude - [%.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]", x, y, z, qx, qy, qz, qw);
 
     ++pose_msg_count;
 }
@@ -78,6 +79,7 @@ void send_throttle_Handler(ros::NodeHandle node_omh, double throttle){
     cmd_msg_throttle.data = throttle;
 
     pub_throttle.publish(cmd_msg_throttle);
+    ROS_INFO("Publishing /mavros/setpoint_attitude/att_throttle - [%.2f]", throttle);
 }
 
 bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_recieve_pose::Response &res){
@@ -89,6 +91,8 @@ bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_reci
     omh_pose_qz = req.qz;
     omh_pose_qw = req.qw;
 
+    ROS_INFO("Recieved attitude - [%.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]", omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
+
     res.success = (bool)true;
 
     return true;
@@ -96,6 +100,8 @@ bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_reci
 
 bool srv_recieve_throttle(cbf_clf::srv_recieve_throttle::Request &req, cbf_clf::srv_recieve_throttle::Response &res){
     omh_throttle = req.throttle;
+
+     ROS_INFO("Recieved throttle - [%.2f]", omh_throttle);
 
     res.success = (bool)true;
 
