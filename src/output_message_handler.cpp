@@ -57,10 +57,6 @@ int main(int argc, char** argv){
                 mavros_last_request = ros::Time::now();
             }
         }
-        ROS_INFO("mavros_msgs/State: connected [%s]",(mavros_current_state.connected)?"true":"false");
-        ROS_INFO("mavros_msgs/State: armed [%s]",(mavros_current_state.armed)?"true":"false");
-        ROS_INFO("mavros_msgs/State: guided [%s]",(mavros_current_state.guided)?"true":"false");
-        ROS_INFO("mavros_msgs/State: mode [%s]",mavros_current_state.mode);
 
         // Publish Pose Data to MAVROS/MAVLink
         send_pose_Handler(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
