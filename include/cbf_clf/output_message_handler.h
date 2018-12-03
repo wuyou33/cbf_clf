@@ -90,9 +90,7 @@ bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_reci
     omh_pose_qy = req.qy;
     omh_pose_qz = req.qz;
     omh_pose_qw = req.qw;
-
-    ROS_INFO("Recieved attitude - [%.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]", omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
-
+    
     res.success = (bool)true;
 
     return true;
@@ -100,8 +98,6 @@ bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_reci
 
 bool srv_recieve_throttle(cbf_clf::srv_recieve_throttle::Request &req, cbf_clf::srv_recieve_throttle::Response &res){
     omh_throttle = req.throttle;
-
-     ROS_INFO("Recieved throttle - [%.2f]", omh_throttle);
 
     res.success = (bool)true;
 

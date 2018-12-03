@@ -7,6 +7,8 @@ int main(int argc, char** argv){
 
     ros::Rate loop_rate(omh_loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
+    ROS_WARN("I'M ALIVE - [%i]" pose_msg_count);
+
     // Publish Pose Data to MAVROS/MAVLink
 
     pub_pose = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude",100);
@@ -30,8 +32,8 @@ int main(int argc, char** argv){
 
     ++pose_msg_count;
 
-    send_pose_Handler(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
-    send_throttle_Handler(node_omh, omh_throttle);
+    //send_pose_Handler(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
+    //send_throttle_Handler(node_omh, omh_throttle);
 
     // Advertise a service which recieves the new pose/throttle data to be send to the Aerocore 2 via MAVROS/MAVLink
     service_recieve_Pose = node_omh.advertiseService("srv_recieve_pose", srv_recieve_pose);
