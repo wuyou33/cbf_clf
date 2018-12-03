@@ -7,7 +7,7 @@ int main(int argc, char** argv){
 
     ros::Rate loop_rate(omh_loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
-    ROS_WARN("I'M ALIVE - [%i]" pose_msg_count);
+    ROS_WARN("I'M ALIVE - [%i]", pose_msg_count);
 
     // Publish Pose Data to MAVROS/MAVLink
 
