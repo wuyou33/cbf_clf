@@ -5,7 +5,8 @@ int main(int argc, char** argv){
     ros::init(argc, argv, "cbf_clf_output_message_handler");
     ros::NodeHandle node_omh;
 
-    ros::Rate loop_rate(omh_loop_rate_); //Needs to be declared AFTER the NodeHandle ! 
+    ros::Rate loop_rate(omh_loop_rate_); //Needs to be declared AFTER the NodeHandle !
+    ros::Time mavros_last_request = ros::Time::now();
     mavros_offb_set_mode.request.custom_mode = "OFFBOARD";
     mavros_arm_cmd.request.value = true;
 
