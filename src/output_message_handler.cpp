@@ -16,16 +16,17 @@ int main(int argc, char** argv){
     cmd_msg_pose.header.stamp = ros::Time::now();
     cmd_msg_pose.header.seq=pose_msg_count;
     cmd_msg_pose.header.frame_id = 1;
-    cmd_msg_pose.pose.position.x = x;
-    cmd_msg_pose.pose.position.y = y;
-    cmd_msg_pose.pose.position.z = z;
-    cmd_msg_pose.pose.orientation.x = qx;
-    cmd_msg_pose.pose.orientation.y = qy;
-    cmd_msg_pose.pose.orientation.z = qz;
-    cmd_msg_pose.pose.orientation.w = qw;
+    cmd_msg_pose.pose.position.x = omh_pose_tx;
+    cmd_msg_pose.pose.position.y = omh_pose_ty;
+    cmd_msg_pose.pose.position.z = omh_pose_tz;
+    cmd_msg_pose.pose.orientation.x = omh_pose_qx;
+    cmd_msg_pose.pose.orientation.y = omh_pose_qy;
+    cmd_msg_pose.pose.orientation.z = omh_pose_qz;
+    cmd_msg_pose.pose.orientation.w = omh_pose_qw;
 
     pub_pose.publish(cmd_msg_pose);
-    ROS_INFO("Publishing /mavros/setpoint_attitude/attitude - [%.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]", x, y, z, qx, qy, qz, qw);
+    ROS_INFO("Publishing /mavros/setpoint_attitude/attitude - [%.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]",
+            omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
 
     ++pose_msg_count;
 
