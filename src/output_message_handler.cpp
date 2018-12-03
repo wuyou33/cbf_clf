@@ -7,8 +7,6 @@ int main(int argc, char** argv){
 
     ros::Rate loop_rate(omh_loop_rate_); //Needs to be declared AFTER the NodeHandle !
     ros::Time mavros_last_request = ros::Time::now();
-    mavros_offb_set_mode.request.custom_mode = "OFFBOARD";
-    mavros_arm_cmd.request.value = true;
 
     // Subscribe to current state of MAVROS
     mavros_state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 10, get_mavros_state);
@@ -19,7 +17,9 @@ int main(int argc, char** argv){
 
     // Subscribe to a Service to recieve Amring and Set Moe from MAVROS
     mavros_arming_client = node_omh.serviceClient<mavros_msgs::CommandBool>("mavros/cmd/arming");
+    mavros_arm_cmd.request.value = true;
     mavros_set_mode_client = node_omh.serviceClient<mavros_msgs::SetMode>("mavros/set_mode");
+    mavros_offb_set_mode.request.custom_mode = "OFFBOARD";
 
     // wait for FCU connection
     while(ros::ok() && !mavros_current_state.connected){
@@ -42,16 +42,14 @@ int main(int argc, char** argv){
      *******************/
     while(ros::ok()){
         if(mavros_current_state.mode != "OFFBOARD" && (ros::Time::now() - mavros_last_request > ros::Duration(5.0))){
-            mavros_set_mode_client.call(mavros_offb_set_mode);
-            if(mavros_offb_set_mode.response.mode_sent){
+            if(mavros_set_mode_client.call(mavros_offb_set_mode) && mavros_offb_set_mode.response.mode_sent){
                 ROS_INFO("Offboard enabled");
             }
             mavros_last_request = ros::Time::now();
         }
         else{
             if(!mavros_current_state.armed &&(ros::Time::now() - mavros_last_request > ros::Duration(5.0))){
-                mavros_arming_client.call(mavros_arm_cmd);
-                if(mavros_arm_cmd.response.success){
+                if(mavros_arming_client.call(mavros_arm_cmd) && mavros_arm_cmd.response.success){
                     ROS_INFO("Vehicle armed");
                 }
                 mavros_last_request = ros::Time::now();
