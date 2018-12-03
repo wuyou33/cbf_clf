@@ -48,13 +48,13 @@ double omh_throttle;
  * Functions *
  *************/
 void send_pose_Handler(ros::NodeHandle node_omh, double x, double y, double z, double qx, double qy, double qz, double qw){
-    pub_pose = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude",100);
+    pub_pose = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude", omh_loop_rate_);
 
     geometry_msgs::PoseStamped cmd_msg_pose;
 
     cmd_msg_pose.header.stamp = ros::Time::now();
     cmd_msg_pose.header.seq=pose_msg_count;
-    cmd_msg_pose.header.frame_id = 1;
+    cmd_msg_pose.header.frame_id = "1";
     cmd_msg_pose.pose.position.x = x;
     cmd_msg_pose.pose.position.y = y;
     cmd_msg_pose.pose.position.z = z;
@@ -64,13 +64,12 @@ void send_pose_Handler(ros::NodeHandle node_omh, double x, double y, double z, d
     cmd_msg_pose.pose.orientation.w = qw;
 
     pub_pose.publish(cmd_msg_pose);
-    ROS_INFO("Publishing /mavros/setpoint_attitude/attitude - [%.2f, %.2f, %.2f], [%.2f, %.2f, %.2f, %.2f]", x, y, z, qx, qy, qz, qw);
 
     ++pose_msg_count;
 }
 
 void send_throttle_Handler(ros::NodeHandle node_omh, double throttle){
-    pub_throttle = node_omh.advertise<std_msgs::Float64>("/mavros/setpoint_attitude/att_throttle", 100);
+    pub_throttle = node_omh.advertise<std_msgs::Float64>("/mavros/setpoint_attitude/att_throttle", omh_loop_rate_);
 
     std_msgs::Float64 cmd_msg_throttle;
 
@@ -79,7 +78,6 @@ void send_throttle_Handler(ros::NodeHandle node_omh, double throttle){
     cmd_msg_throttle.data = throttle;
 
     pub_throttle.publish(cmd_msg_throttle);
-    ROS_INFO("Publishing /mavros/setpoint_attitude/att_throttle - [%.2f]", throttle);
 }
 
 bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_recieve_pose::Response &res){
