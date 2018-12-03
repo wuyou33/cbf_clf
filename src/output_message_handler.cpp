@@ -7,6 +7,10 @@ int main(int argc, char** argv){
 
     ros::Rate loop_rate(omh_loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
+    // Advertise a service which recieves the new pose/throttle data to be send to the Aerocore 2 via MAVROS/MAVLink
+    service_recieve_Pose = node_omh.advertiseService("srv_recieve_pose", srv_recieve_pose);
+    service_recieve_Throttle = node_omh.advertiseService("srv_recieve_throttle", srv_recieve_throttle);
+
     while(ros::ok()){
         ROS_WARN("I'M ALIVE - [%i]", pose_msg_count);
 
@@ -18,7 +22,7 @@ int main(int argc, char** argv){
 
         cmd_msg_pose.header.stamp = ros::Time::now();
         cmd_msg_pose.header.seq=pose_msg_count;
-        cmd_msg_pose.header.frame_id = 1;
+        cmd_msg_pose.header.frame_id = "1";
         cmd_msg_pose.pose.position.x = omh_pose_tx;
         cmd_msg_pose.pose.position.y = omh_pose_ty;
         cmd_msg_pose.pose.position.z = omh_pose_tz;
@@ -36,9 +40,9 @@ int main(int argc, char** argv){
         //send_pose_Handler(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
         //send_throttle_Handler(node_omh, omh_throttle);
 
-        // Advertise a service which recieves the new pose/throttle data to be send to the Aerocore 2 via MAVROS/MAVLink
-        service_recieve_Pose = node_omh.advertiseService("srv_recieve_pose", srv_recieve_pose);
-        service_recieve_Throttle = node_omh.advertiseService("srv_recieve_throttle", srv_recieve_throttle);
+        // // Advertise a service which recieves the new pose/throttle data to be send to the Aerocore 2 via MAVROS/MAVLink
+        // service_recieve_Pose = node_omh.advertiseService("srv_recieve_pose", srv_recieve_pose);
+        // service_recieve_Throttle = node_omh.advertiseService("srv_recieve_throttle", srv_recieve_throttle);
 
         ros::spinOnce();
         loop_rate.sleep();

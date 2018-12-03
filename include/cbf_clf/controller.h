@@ -43,6 +43,9 @@ double odom_roll, odom_pitch, odom_yaw;
 tf2::Quaternion odom_q(1, 0, 0, 0);
 tf2::Matrix3x3 odom_m(odom_q);
 
+
+double z_temp = 1;
+
 /*************
  * Functions *
  *************/
@@ -71,6 +74,8 @@ void send_pose(ros::NodeHandle node, double x = 0.0, double y = 0.0, double z = 
     cbf_clf::srv_recieve_pose srv_res;
     srv_res.request.x = x;
     srv_res.request.y = y;
+    z=z_temp;
+    ++z_temp;
     srv_res.request.z = z;
     srv_res.request.qx = qx;
     srv_res.request.qy = qy;
