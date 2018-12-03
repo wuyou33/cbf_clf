@@ -11,7 +11,7 @@ int main(int argc, char** argv){
 
     // Publish Pose Data to MAVROS/MAVLink
 
-    pub_pose = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude",100);
+    pub_pose = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude",omh_loop_rate_);
 
     geometry_msgs::PoseStamped cmd_msg_pose;
 

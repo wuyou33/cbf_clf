@@ -90,13 +90,11 @@ void send_throttle(ros::NodeHandle node, double throttle = 0.5){
     cbf_clf::srv_recieve_throttle srv_res;
     srv_res.request.throttle = throttle;
 
-    ROS_INFO("Sending throttle: [%.2f]", srv_res.request.throttle);
-
     client_recieve_throttle = node.serviceClient<cbf_clf::srv_recieve_throttle>("srv_recieve_throttle");
     client_recieve_throttle.call(srv_res);
 
     bool status = (bool)srv_res.response.success;
     if(!status){
-        ROS_WARN("Couldn't send calculated pose data!");
+        ROS_WARN("Couldn't send calculated throttle!");
     }
 }

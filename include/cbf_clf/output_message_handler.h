@@ -32,7 +32,7 @@ ros::Publisher pub_throttle;
 ros::ServiceServer service_recieve_Pose;
 ros::ServiceServer service_recieve_Throttle;
 
-int omh_loop_rate_ = 60;
+int omh_loop_rate_ = 120;
 
 int pose_msg_count = 1;
 
@@ -90,8 +90,8 @@ bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_reci
     omh_pose_qy = req.qy;
     omh_pose_qz = req.qz;
     omh_pose_qw = req.qw;
-    
-    res.success = (bool)true;
+
+    res.success = true;
 
     return true;
 }
@@ -99,7 +99,7 @@ bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_reci
 bool srv_recieve_throttle(cbf_clf::srv_recieve_throttle::Request &req, cbf_clf::srv_recieve_throttle::Response &res){
     omh_throttle = req.throttle;
 
-    res.success = (bool)true;
+    res.success = true;
 
     return true;
 }
