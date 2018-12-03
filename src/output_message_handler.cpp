@@ -11,7 +11,7 @@ int main(int argc, char** argv){
     mavros_arm_cmd.request.value = true;
 
     // Subscribe to current state of MAVROS
-    ros::Subscriber state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 10, get_mavros_state);
+    mavros_state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 10, get_mavros_state);
 
     // Advertise a service which recieves the new pose/throttle data to be send to the Aerocore 2 via MAVROS/MAVLink
     service_recieve_Pose = node_omh.advertiseService("srv_recieve_pose", srv_recieve_pose);
@@ -26,6 +26,7 @@ int main(int argc, char** argv){
         ros::spinOnce();
         loop_rate.sleep();
     }
+    ROS_INFO("FCU connection established");
 
     //send a few setpoints before starting
     for(int i = 100; ros::ok() && i > 0; --i){
@@ -41,19 +42,25 @@ int main(int argc, char** argv){
      *******************/
     while(ros::ok()){
         if(mavros_current_state.mode != "OFFBOARD" && (ros::Time::now() - mavros_last_request > ros::Duration(5.0))){
-            if(mavros_set_mode_client.call(mavros_offb_set_mode) && mavros_offb_set_mode.response.mode_sent){
+            mavros_set_mode_client.call(mavros_offb_set_mode);
+            if(mavros_offb_set_mode.response.mode_sent){
                 ROS_INFO("Offboard enabled");
             }
             mavros_last_request = ros::Time::now();
         }
         else{
             if(!mavros_current_state.armed &&(ros::Time::now() - mavros_last_request > ros::Duration(5.0))){
-                if(mavros_arming_client.call(mavros_arm_cmd) && mavros_arm_cmd.response.success){
+                mavros_arming_client.call(mavros_arm_cmd);
+                if(mavros_arm_cmd.response.success){
                     ROS_INFO("Vehicle armed");
                 }
                 mavros_last_request = ros::Time::now();
             }
         }
+        ROS_INFO("mavros_msgs/State: connected [%s]",(mavros_current_state.connected)?"true":"false");
+        ROS_INFO("mavros_msgs/State: armed [%s]",(mavros_current_state.armed)?"true":"false");
+        ROS_INFO("mavros_msgs/State: guided [%s]",(mavros_current_state.guided)?"true":"false");
+        ROS_INFO("mavros_msgs/State: mode [%s]",mavros_current_state.mode);
 
         // Publish Pose Data to MAVROS/MAVLink
         send_pose_Handler(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);

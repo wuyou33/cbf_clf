@@ -33,6 +33,7 @@
  *************/
 ros::Publisher pub_pose;
 ros::Publisher pub_throttle;
+ros::Subscriber mavros_state_sub
 ros::ServiceServer service_recieve_Pose;
 ros::ServiceServer service_recieve_Throttle;
 ros::ServiceClient mavros_arming_client;
