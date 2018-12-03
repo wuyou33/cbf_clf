@@ -18,6 +18,10 @@
 
 #include "nav_msgs/Odometry.h"
 
+#include <mavros_msgs/CommandBool.h>
+#include <mavros_msgs/SetMode.h>
+#include <mavros_msgs/State.h>
+
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2/LinearMath/Matrix3x3.h"
 
@@ -31,6 +35,17 @@ ros::Publisher pub_pose;
 ros::Publisher pub_throttle;
 ros::ServiceServer service_recieve_Pose;
 ros::ServiceServer service_recieve_Throttle;
+ros::ServiceClient mavros_arming_client;
+ros::ServiceClient mavros_set_mode_client;
+
+mavros_msgs::State mavros_current_state;
+mavros_msgs::SetMode mavros_offb_set_mode;
+mavros_msgs::CommandBool mavros_arm_cmd;
+
+mavros_offb_set_mode.request.custom_mode = "OFFBOARD";
+mavros_arm_cmd.request.value = true;
+
+ros::Time mavros_last_request = ros::Time::now();
 
 int omh_loop_rate_ = 120;
 
@@ -100,4 +115,8 @@ bool srv_recieve_throttle(cbf_clf::srv_recieve_throttle::Request &req, cbf_clf::
     res.success = true;
 
     return true;
+}
+
+void get_mavros_state(const mavros_msgs::State::ConstPtr& msg){
+    mavros_current_state = *msg;
 }
