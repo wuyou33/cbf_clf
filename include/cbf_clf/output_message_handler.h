@@ -42,9 +42,6 @@ mavros_msgs::State mavros_current_state;
 mavros_msgs::SetMode mavros_offb_set_mode;
 mavros_msgs::CommandBool mavros_arm_cmd;
 
-mavros_offb_set_mode.request.custom_mode = "OFFBOARD";
-mavros_arm_cmd.request.value = true;
-
 ros::Time mavros_last_request = ros::Time::now();
 
 int omh_loop_rate_ = 120;
