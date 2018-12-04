@@ -28,7 +28,7 @@ int main(int argc, char** argv){
     }
     ROS_INFO("FCU connection established");
 
-    //send a few setpoints before starting
+    // send a few setpoints before starting
     for(int i = 100; ros::ok() && i > 0; --i){
         // Publish Pose Data to MAVROS/MAVLink
         send_pose_Handler(node_omh, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
