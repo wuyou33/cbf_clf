@@ -53,6 +53,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate services in the 'srv' folder
 add_service_files(FILES
   srv_get_pose.srv
+  srv_recieve_pose.srv
+  srv_recieve_throttle.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -209,5 +211,14 @@ add_executable(input_message_handler
 )
 add_dependencies(input_message_handler ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(input_message_handler
+  ${catkin_LIBRARIES}
+)
+
+add_executable(output_message_handler
+  include/cbf_clf/output_message_handler.h
+  src/output_message_handler.cpp
+)
+add_dependencies(output_message_handler ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(output_message_handler
   ${catkin_LIBRARIES}
 )
