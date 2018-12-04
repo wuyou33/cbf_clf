@@ -44,12 +44,12 @@ if grep -Fxq "$exportline" ~/.profile; then echo nothing to do ; else echo $expo
 popd
 ```
 **Afterwards restart your machine!**
-#### Step 3- Cloning the software
+#### Step 3 - Cloning the software
 ```
 git clone https://github.com/JohannLange/Firmware.git
 cd Firmware && git submodule update --init --recursive
 ```
-#### Step - 4Making/Building the firmware and uploading it
+#### Step 4 - Making/Building the firmware and uploading it
 Now one can choose to upload the firmware via the ```make```-command or just build the firmware and upload the firmware-file via QGroundControl.
 ##### Step 4.1 - Uploading via the ```make```-command
 Enter the following command and follow the on screen instructions.
