@@ -57,7 +57,7 @@
         <param name="tgt_component" value="$(arg tgt_component)" />
         <param name="log_output" value="$(arg log_output)" />
         <param name="fcu_protocol" value="$(arg fcu_protocol)" />
-        <param name="respawn_mavros" default="$(arg respawn_mavros)" />
+        <param name="respawn_mavros" value="$(arg respawn_mavros)" />
     
         <!-- enable heartbeat send and reduce timeout -->
         <param name="conn_heartbeat" value="5.0" />
