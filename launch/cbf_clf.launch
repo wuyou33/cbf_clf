@@ -60,7 +60,7 @@
         <param name="respawn_mavros" value="$(arg respawn_mavros)" />
     
         <!-- enable heartbeat send and reduce timeout -->
-        <param name="conn_heartbeat" value="5.0" />
-        <param name="conn_timeout" value="20.0" />
+        <!-- <param name="conn_heartbeat" value="5.0" /> -->
+        <!-- <param name="conn_timeout" value="20.0" /> -->
     </node>
 </launch>
