@@ -44,7 +44,7 @@ mavros_msgs::State mavros_current_state;
 mavros_msgs::SetMode mavros_offb_set_mode;
 mavros_msgs::CommandBool mavros_arm_cmd;
 
-int omh_loop_rate_ = 120;
+int omh_loop_rate_ = 10;
 
 int pose_msg_count = 1;
 
