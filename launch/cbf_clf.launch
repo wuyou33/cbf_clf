@@ -37,7 +37,8 @@
     </group>
 
     <!-- Launch MAVROS -->
-    <arg name="fcu_url" default="/dev/ttyTHS2:57600"/>
+    <include file="$(find mavros)/launch/px4.launch" />
+    <!--<arg name="fcu_url" default="/dev/ttyTHS2:57600"/>
     <arg name="gcs_url" default="" />
     <arg name="tgt_system" default="1" />
     <arg name="tgt_component" default="1" />
@@ -51,16 +52,16 @@
         <!--rosparam command="load" file="$(find mavros)/launch/px4_blacklist.yaml"-->
 
         <!-- General stuff -->
-        <param name="fcu_url" value="$(arg fcu_url)" />
+        <!--<param name="fcu_url" value="$(arg fcu_url)" />
         <param name="gcs_url" value="$(arg gcs_url)" />
         <param name="tgt_system" value="$(arg tgt_system)" />
         <param name="tgt_component" value="$(arg tgt_component)" />
         <param name="log_output" value="$(arg log_output)" />
         <param name="fcu_protocol" value="$(arg fcu_protocol)" />
-        <param name="respawn_mavros" value="$(arg respawn_mavros)" />
+        <param name="respawn_mavros" value="$(arg respawn_mavros)" />-->
     
         <!-- enable heartbeat send and reduce timeout -->
         <!-- <param name="conn_heartbeat" value="5.0" /> -->
         <!-- <param name="conn_timeout" value="20.0" /> -->
-    </node>
+    <!--</node> -->
 </launch>
