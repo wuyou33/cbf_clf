@@ -16,6 +16,9 @@
 #include "nav_msgs/Odometry.h"
 #include "cbf_clf/srv_get_pose.h"
 
+#include "tf2/LinearMath/Quaternion.h"
+#include "tf2/LinearMath/Matrix3x3.h"
+
 // Custom Header Files
 #include "cbf_clf/input_message_handler.h"
 #include "cbf_clf/output_message_handler.h"
@@ -97,4 +100,55 @@ void send_throttle(ros::NodeHandle node, double throttle = 0.5){
     if(!status){
         ROS_WARN("Couldn't send calculated throttle!");
     }
+}
+
+void fly_trajectory(ros::NodeHandle node, ros::Time start_time = ros::Time::now(), std::string traj_name = "const_height"){
+    ros::Time current_time = ros::Time::now();
+    double looptime = 30; // s
+    double progress = std::fmod((current_time.toSec() - start_time.toSec()), looptime);
+
+    double x = 0.0;
+    double y = 0.0;
+    double z = 1.0;
+    double qx = 0.0;
+    double qy = 0.0;
+    double qz = 0.0;
+    double qw = 1.0;
+    double pi = 3.1415927;
+    double angle = 2.0*pi*progress;
+    tf2::Quaternion q;
+
+    if ("const_height"==traj_name){
+        x = 0.0;
+        y = 0.0;
+        z = 1.0;
+        qx = 0.0;
+        qy = 0.0;
+        qz = 0.0;
+        qw = 1.0;
+    }
+    else if("circle"==traj_name){
+        x = cos(angle) - 1.0;
+        y = sin(angle);
+        z = 1.0;
+        double roll = 0.0;
+        double pitch = 0.0;
+        double yaw = angle;
+        q.setRPY(roll, pitch, yaw);
+        q.normalize();
+        qx = q.x();
+        qy = q.y();
+        qz = q.z();
+        qw = q.w();
+    }
+    else{ // Again const height, just in case as a backup.
+        x = 0.0;
+        y = 0.0;
+        z = 1.0;
+        qx = 0.0;
+        qy = 0.0;
+        qz = 0.0;
+        qw = 1.0;
+    }
+    send_pose(node, x, y, z, qx, qy, qz, qw);
 }

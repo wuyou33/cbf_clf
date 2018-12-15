@@ -31,7 +31,8 @@
 /*************
  * Variables *
  *************/
-ros::Publisher pub_pose;
+ros::Publisher pub_pose_att;
+ros::Publisher pub_pose_set;
 ros::Publisher pub_throttle;
 ros::Subscriber mavros_state_sub;
 ros::ServiceServer service_recieve_Pose;
@@ -43,7 +44,7 @@ mavros_msgs::State mavros_current_state;
 mavros_msgs::SetMode mavros_offb_set_mode;
 mavros_msgs::CommandBool mavros_arm_cmd;
 
-int omh_loop_rate_ = 120;
+int omh_loop_rate_ = 10;
 
 int pose_msg_count = 1;
 
@@ -59,7 +60,8 @@ double omh_throttle;
  * Functions *
  *************/
 void send_pose_Handler(ros::NodeHandle node_omh, double x, double y, double z, double qx, double qy, double qz, double qw){
-    pub_pose = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude", omh_loop_rate_);
+    pub_pose_att = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude", omh_loop_rate_);
+    pub_pose_set = node_omh.advertise<geometry_msgs::PoseStamped>("mavros/setpoint_position/local", omh_loop_rate_);
 
     geometry_msgs::PoseStamped cmd_msg_pose;
 
@@ -74,7 +76,8 @@ void send_pose_Handler(ros::NodeHandle node_omh, double x, double y, double z, d
     cmd_msg_pose.pose.orientation.z = qz;
     cmd_msg_pose.pose.orientation.w = qw;
 
-    pub_pose.publish(cmd_msg_pose);
+    pub_pose_att.publish(cmd_msg_pose);
+    pub_pose_set.publish(cmd_msg_pose);
 
     ++pose_msg_count;
 }

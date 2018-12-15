@@ -32,7 +32,6 @@ int main(int argc, char** argv){
     for(int i = 100; ros::ok() && i > 0; --i){
         // Publish Pose Data to MAVROS/MAVLink
         send_pose_Handler(node_omh, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
-        send_throttle_Handler(node_omh, 0.3); // Idle throttle
         ros::spinOnce();
         loop_rate.sleep();
     }
@@ -58,7 +57,6 @@ int main(int argc, char** argv){
 
         // Publish Pose Data to MAVROS/MAVLink
         send_pose_Handler(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
-        send_throttle_Handler(node_omh, omh_throttle);
 
         ros::spinOnce();
         loop_rate.sleep();
