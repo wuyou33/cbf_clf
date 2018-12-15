@@ -21,13 +21,12 @@ int main(int argc, char** argv){
     mavros_set_mode_client = node_omh.serviceClient<mavros_msgs::SetMode>("mavros/set_mode");
     mavros_offb_set_mode.request.custom_mode = "OFFBOARD";
 
-    // For some reason the following function is behaving unreliable. Thus, it is currently not in use
-    // // wait for FCU connection
-    // while(ros::ok() && !mavros_current_state.connected){
-    //     ros::spinOnce();
-    //     loop_rate.sleep();
-    // }
-    // ROS_INFO("FCU connection established");
+    // wait for FCU connection
+    while(ros::ok() && !mavros_current_state.connected){
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
+    ROS_INFO("FCU connection established");
 
     // send a few setpoints before starting
     for(int i = 100; ros::ok() && i > 0; --i){
