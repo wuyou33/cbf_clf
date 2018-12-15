@@ -7,10 +7,10 @@
         <node name="controller" pkg="cbf_clf" type="controller" output="screen">
             <param name="trajectory"    value="$(arg trajectory)" />
         </node>
-        <node name="input_message_handler" pkg="cbf_clf" type="input_message_handler" output="screen"/>
-        <node name="output_message_handler" pkg="cbf_clf" type="output_message_handler" output="screen"/>
     </group>
 
+    <node name="input_message_handler" pkg="cbf_clf" type="input_message_handler" output="screen"/>
+    <node name="output_message_handler" pkg="cbf_clf" type="output_message_handler" output="screen"/>
 
     <!-- Launch  ZED Wrapper-->
     <arg name="svo_file"        default="" /> <!-- <arg name="svo_file" default="path/to/svo/file.svo"> -->
