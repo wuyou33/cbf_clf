@@ -71,6 +71,6 @@
     </node>
 
     <!-- Launch ROSBAG -->
-    <arg name="record"  default="true" />
-    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /rosout" if="$(arg record)" />
+    <!-- <arg name="record"  default="true" /> -->
+    <!-- <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /rosout" if="$(arg record)" /> -->
 </launch>

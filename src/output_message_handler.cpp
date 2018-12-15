@@ -22,7 +22,9 @@ int main(int argc, char** argv){
     mavros_offb_set_mode.request.custom_mode = "OFFBOARD";
 
     // wait for FCU connection
+    ROS_INFO("Waiting for FCU connection...");
     while(ros::ok() && !mavros_current_state.connected){
+        ROS_INFO("Waiting for FCU connection...");
         ros::spinOnce();
         loop_rate.sleep();
     }
