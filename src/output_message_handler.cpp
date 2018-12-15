@@ -31,8 +31,8 @@ int main(int argc, char** argv){
     // send a few setpoints before starting
     for(int i = 100; ros::ok() && i > 0; --i){
         // Publish Pose Data to MAVROS/MAVLink
-        send_pose_Handler(node_omh, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
-        send_throttle_Handler(node_omh, 0.3); // Idle throttle
+        send_pose_Handler_Position(node_omh, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
+        // send_throttle_Handler(node_omh, 0.3); // Idle throttle
         ros::spinOnce();
         loop_rate.sleep();
     }
@@ -57,9 +57,19 @@ int main(int argc, char** argv){
         }
 
         // Publish Pose Data to MAVROS/MAVLink
-        send_pose_Handler(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
-        send_throttle_Handler(node_omh, omh_throttle);
+        send_pose_Handler_Position(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
+        // send_throttle_Handler(node_omh, omh_throttle);
 
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
+
+    // Execute the following function on shutdown
+    mavros_offb_set_mode.request.custom_mode = "LAND";
+    for(int i = 100; i > 0; --i){
+        if(mavros_set_mode_client.call(mavros_offb_set_mode) && mavros_offb_set_mode.response.mode_sent){
+            ROS_INFO("Landing...");
+        }
         ros::spinOnce();
         loop_rate.sleep();
     }
