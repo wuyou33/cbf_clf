@@ -32,8 +32,8 @@ int main(int argc, char** argv){
             pose_tx, pose_ty, pose_tz,
             pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
 
-        std::string trajectory_name;
-        node.getParam("trajectory", trajectory_name);
+        std::string trajectory_name = "const_height";
+        // node.getParam("trajectory", trajectory_name);
         fly_trajectory(node, start_time, trajectory_name);
 
         // send_pose(node); // TODO: ADD CALCULATED POSE AS FUNCTION ARGUMENTS!

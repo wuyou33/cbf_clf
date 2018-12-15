@@ -1,14 +1,6 @@
 <launch>
     <!-- Launch CBF_CLF -->
-    <arg name="mode"        default="trajectory" /> <!-- trajectory, ... (CURRENTLY NOT USED!) -->
-    <arg name="trajectory"  default="const_height" /> <!-- const_height, circle, ... -->
-    
-    <group ns="cbfclf">
-        <node name="controller" pkg="cbf_clf" type="controller" output="screen">
-            <param name="trajectory"    value="$(arg trajectory)" />
-        </node>
-    </group>
-
+    <node name="controller" pkg="cbf_clf" type="controller" output="screen" />
     <node name="input_message_handler" pkg="cbf_clf" type="input_message_handler" output="screen"/>
     <node name="output_message_handler" pkg="cbf_clf" type="output_message_handler" output="screen"/>
 
