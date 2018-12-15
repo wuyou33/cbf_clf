@@ -64,15 +64,15 @@ int main(int argc, char** argv){
         loop_rate.sleep();
     }
 
-    // Execute the following function on shutdown
-    mavros_offb_set_mode.request.custom_mode = "LAND";
-    for(int i = 100; i > 0; --i){
-        if(mavros_set_mode_client.call(mavros_offb_set_mode) && mavros_offb_set_mode.response.mode_sent){
-            ROS_INFO("Landing...");
-        }
-        ros::spinOnce();
-        loop_rate.sleep();
-    }
+    // // Execute the following function on shutdown
+    // mavros_offb_set_mode.request.custom_mode = "LAND";
+    // for(int i = 100; i > 0; --i){
+    //     if(mavros_set_mode_client.call(mavros_offb_set_mode) && mavros_offb_set_mode.response.mode_sent){
+    //         ROS_INFO("Landing...");
+    //     }
+    //     ros::spinOnce();
+    //     loop_rate.sleep();
+    // }
 
 return 0;
 }
