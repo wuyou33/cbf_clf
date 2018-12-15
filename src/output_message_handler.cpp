@@ -24,8 +24,6 @@ int main(int argc, char** argv){
     // wait for FCU connection
     ROS_INFO("Waiting for FCU connection...");
     while(ros::ok() && !mavros_current_state.connected){
-        mavros_state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 10, get_mavros_state);
-        ROS_INFO("Waiting for FCU connection [%s]...", mavros_current_state.connected ? "true" : "false");
         ros::spinOnce();
         loop_rate.sleep();
     }
