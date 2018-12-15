@@ -9,7 +9,7 @@ int main(int argc, char** argv){
     ros::Time mavros_last_request = ros::Time::now();
 
     // Subscribe to current state of MAVROS
-    mavros_state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 1, get_mavros_state);
+    mavros_state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 5, get_mavros_state);
 
     // Advertise a service which recieves the new pose/throttle data to be send to the Aerocore 2 via MAVROS/MAVLink
     service_recieve_Pose = node_omh.advertiseService("srv_recieve_pose", srv_recieve_pose);
@@ -21,16 +21,16 @@ int main(int argc, char** argv){
     mavros_set_mode_client = node_omh.serviceClient<mavros_msgs::SetMode>("mavros/set_mode");
     mavros_offb_set_mode.request.custom_mode = "OFFBOARD";
 
-    // wait for FCU connection
-    ROS_INFO("Waiting for FCU connection...");
-    while(ros::ok() && !mavros_current_state.connected){
-        ros::spinOnce();
-        loop_rate.sleep();
-    }
-    ROS_INFO("FCU connection established");
+    // For some reason the following function is behaving unreliable. Thus, it is currently not in use
+    // // wait for FCU connection
+    // while(ros::ok() && !mavros_current_state.connected){
+    //     ros::spinOnce();
+    //     loop_rate.sleep();
+    // }
+    // ROS_INFO("FCU connection established");
 
     // send a few setpoints before starting
-    for(int i = 10; ros::ok() && i > 0; --i){
+    for(int i = 100; ros::ok() && i > 0; --i){
         // Publish Pose Data to MAVROS/MAVLink
         send_pose_Handler_Position(node_omh, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
         // send_throttle_Handler(node_omh, 0.3); // Idle throttle

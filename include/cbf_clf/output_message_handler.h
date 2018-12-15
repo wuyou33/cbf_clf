@@ -139,5 +139,4 @@ bool srv_recieve_throttle(cbf_clf::srv_recieve_throttle::Request &req, cbf_clf::
 
 void get_mavros_state(const mavros_msgs::State::ConstPtr& msg){
     mavros_current_state = *msg;
-    ROS_INFO("FCU Connection State [%s]...", mavros_current_state.connected ? "true" : "false");
 }
