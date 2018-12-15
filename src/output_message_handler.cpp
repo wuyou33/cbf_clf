@@ -9,7 +9,7 @@ int main(int argc, char** argv){
     ros::Time mavros_last_request = ros::Time::now();
 
     // Subscribe to current state of MAVROS
-    mavros_state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 10, get_mavros_state);
+    mavros_state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 1, get_mavros_state);
 
     // Advertise a service which recieves the new pose/throttle data to be send to the Aerocore 2 via MAVROS/MAVLink
     service_recieve_Pose = node_omh.advertiseService("srv_recieve_pose", srv_recieve_pose);
