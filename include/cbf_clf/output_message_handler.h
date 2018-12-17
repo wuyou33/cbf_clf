@@ -62,7 +62,7 @@ double omh_throttle;
 /*************
  * Functions *
  *************/
- void send_Actuator_Control_Handler(ros::NodeHandle node_omh, double a0 = 0.0, double a1 = 0.0, double a2 = 0.0, double a3, double a4 = 0.0, double a5 = 0.0, double a6 = 0.0, double a7 = 0.0){
+ void send_Actuator_Control_Handler(ros::NodeHandle node_omh, double a0 = 0.0, double a1 = 0.0, double a2 = 0.0, double a3 = 0.0, double a4 = 0.0, double a5 = 0.0, double a6 = 0.0, double a7 = 0.0){
      // Currently we are developing a quadrotor, thus, actuator/motor 4..7 are not used
     pub_act_control = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude", omh_loop_rate_);
 
