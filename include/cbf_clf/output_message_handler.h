@@ -18,6 +18,7 @@
 
 #include "nav_msgs/Odometry.h"
 
+#include <mavros_msgs/ActuatorControl.h>
 #include <mavros_msgs/CommandBool.h>
 #include <mavros_msgs/SetMode.h>
 #include <mavros_msgs/State.h>
@@ -31,6 +32,7 @@
 /*************
  * Variables *
  *************/
+ros::Publisher pub_act_control;
 ros::Publisher pub_pose_att;
 ros::Publisher pub_pose_set;
 ros::Publisher pub_throttle;
@@ -46,6 +48,7 @@ mavros_msgs::CommandBool mavros_arm_cmd;
 
 int omh_loop_rate_ = 10;
 
+int act_msg_count = 1;
 int pose_msg_count = 1;
 
 // Pose Information
@@ -59,6 +62,30 @@ double omh_throttle;
 /*************
  * Functions *
  *************/
+ void send_Actuator_Control_Handler(ros::NodeHandle node_omh, double a0 = 0.0, double a1 = 0.0, double a2 = 0.0, double a3, double a4 = 0.0, double a5 = 0.0, double a6 = 0.0, double a7 = 0.0){
+     // Currently we are developing a quadrotor, thus, actuator/motor 4..7 are not used
+    pub_act_control = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude", omh_loop_rate_);
+
+    mavros_msgs::ActuatorControl act_control_msg;
+
+    cmd_msg_pose.header.stamp = ros::Time::now();
+    cmd_msg_pose.header.seq = act_msg_count;
+    cmd_msg_pose.header.frame_id = "1";
+    cmd_msg_pose.group_mix = 3;
+    cmd_msg_pose.controls[0] = a0;
+    cmd_msg_pose.controls[1] = a1;
+    cmd_msg_pose.controls[2] = a2;
+    cmd_msg_pose.controls[3] = a3;
+    cmd_msg_pose.controls[4] = a4;
+    cmd_msg_pose.controls[5] = a5;
+    cmd_msg_pose.controls[6] = a6;
+    cmd_msg_pose.controls[7] = a7;
+
+    pub_act_control.publish(act_control_msg);
+
+    ++act_msg_count;
+}
+
 void send_pose_Handler(ros::NodeHandle node_omh, double x, double y, double z, double qx, double qy, double qz, double qw){
     pub_pose_att = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude", omh_loop_rate_);
     pub_pose_set = node_omh.advertise<geometry_msgs::PoseStamped>("mavros/setpoint_position/local", omh_loop_rate_);
