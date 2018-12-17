@@ -68,18 +68,18 @@ double omh_throttle;
 
     mavros_msgs::ActuatorControl act_control_msg;
 
-    cmd_msg_pose.header.stamp = ros::Time::now();
-    cmd_msg_pose.header.seq = act_msg_count;
-    cmd_msg_pose.header.frame_id = "1";
-    cmd_msg_pose.group_mix = 3;
-    cmd_msg_pose.controls[0] = a0;
-    cmd_msg_pose.controls[1] = a1;
-    cmd_msg_pose.controls[2] = a2;
-    cmd_msg_pose.controls[3] = a3;
-    cmd_msg_pose.controls[4] = a4;
-    cmd_msg_pose.controls[5] = a5;
-    cmd_msg_pose.controls[6] = a6;
-    cmd_msg_pose.controls[7] = a7;
+    act_control_msg.header.stamp = ros::Time::now();
+    act_control_msg.header.seq = act_msg_count;
+    act_control_msg.header.frame_id = "1";
+    act_control_msg.group_mix = 3;
+    act_control_msg.controls[0] = a0;
+    act_control_msg.controls[1] = a1;
+    act_control_msg.controls[2] = a2;
+    act_control_msg.controls[3] = a3;
+    act_control_msg.controls[4] = a4;
+    act_control_msg.controls[5] = a5;
+    act_control_msg.controls[6] = a6;
+    act_control_msg.controls[7] = a7;
 
     pub_act_control.publish(act_control_msg);
 
