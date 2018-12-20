@@ -20,8 +20,8 @@
 #include "tf2/LinearMath/Matrix3x3.h"
 
 // Custom Header Files
-#include "cbf_clf/input_message_handler.h"
-#include "cbf_clf/output_message_handler.h"
+// #include "cbf_clf/input_message_handler.h"
+// #include "cbf_clf/output_message_handler.h"
 
 /*************
  * Variables *

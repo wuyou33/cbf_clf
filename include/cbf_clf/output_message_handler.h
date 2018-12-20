@@ -46,7 +46,7 @@ mavros_msgs::State mavros_current_state;
 mavros_msgs::SetMode mavros_offb_set_mode;
 mavros_msgs::CommandBool mavros_arm_cmd;
 
-std:string control_mode;
+std::string control_mode;
 
 int omh_loop_rate_ = 10;
 
