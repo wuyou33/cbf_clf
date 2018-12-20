@@ -1,8 +1,14 @@
 <launch>
     <!-- Launch CBF_CLF -->
-    <node name="controller" pkg="cbf_clf" type="controller" output="screen" />
-    <node name="input_message_handler" pkg="cbf_clf" type="input_message_handler" output="screen"/>
-    <node name="output_message_handler" pkg="cbf_clf" type="output_message_handler" output="screen"/>
+    <arg name="flight_trajectory"   default="const_height" /> <!-- const_height, circle -->
+    <arg name="control_mode"        default="pose_control" /> <!-- pose_control_ actuator_control -->
+    <node name="controller" pkg="cbf_clf" type="controller" output="screen">
+        <param name="flight_trajectory" value="$(arg flight_trajectory)" />
+    </node>
+    <node name="input_message_handler" pkg="cbf_clf" type="input_message_handler" output="screen" />
+    <node name="output_message_handler" pkg="cbf_clf" type="output_message_handler" output="screen">
+        <param name="control_mode"      value="$(arg control_mode)" />
+    </node>
 
     <!-- Launch  ZED Wrapper-->
     <arg name="svo_file"        default="" /> <!-- <arg name="svo_file" default="path/to/svo/file.svo"> -->
@@ -73,8 +79,56 @@
         /tf
         /tf_static
         /diagnostics
-        /mavlink/from /mavros/altitude /mavros/battery /mavros/extended_state /mavros/imu/data /mavros/mission/waypoints /mavros/rc/out /mavros/setpoint_attitude/att_throttle /mavros/setpoint_attitude/attitude /mavros/setpoint_position/local /mavros/setpoint_raw/target_attitude /mavros/state /mavros/target_actuator_control /mavros/vfr_hud /mavros/vibration/raw/vibration /mavros/wind_estimation /zed/imu/data /zed/imu/data_raw /zed/left/camera_info /zed/left/camera_info_raw /zed/odom /zed/path_map /zed/path_odom /zed/pose /zed/joint_states /zed/zed_wrapper_node/parameter_descriptions /zed/zed_wrapper_node/parameter_updates"
-        if="$(arg record_essentials)" /> 
-    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/depth /zed/depth/camera_info /zed/depth/depth_registered /zed/depth/depth_registered/compressed/parameter_descriptions /zed/depth/depth_registered/compressed/parameter_updates /zed/depth/depth_registered/compressedDepth /zed/depth/depth_registered/compressedDepth/parameter_descriptions /zed/depth/depth_registered/compressedDepth/parameter_updates /zed/depth/depth_registered/theora /zed/depth/depth_registered/theora/parameter_descriptions /zed/depth/depth_registered/theora/parameter_updates" if="$(arg record_depth)" />
-    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/confidence /zed/confidence/confidence_image /zed/confidence/confidence_image/compressed /zed/confidence/confidence_image/compressed/parameter_descriptions /zed/confidence/confidence_image/compressed/parameter_updates /zed/confidence/confidence_image/compressedDepth/parameter_descriptions /zed/confidence/confidence_image/compressedDepth/parameter_updates /zed/confidence/confidence_image/theora /zed/confidence/confidence_image/theora/parameter_descriptions /zed/confidence/confidence_image/theora/parameter_updates /zed/confidence/confidence_map" if="$(arg record_confidence)" />
+        /mavlink/from
+        /mavros/altitude
+        /mavros/battery
+        /mavros/extended_state
+        /mavros/imu/data
+        /mavros/mission/waypoints
+        /mavros/rc/out
+        /mavros/setpoint_attitude/att_throttle
+        /mavros/setpoint_attitude/attitude
+        /mavros/setpoint_position/local
+        /mavros/setpoint_raw/target_attitude
+        /mavros/state
+        /mavros/target_actuator_control
+        /mavros/vfr_hud
+        /mavros/vibration/raw/vibration
+        /mavros/wind_estimation
+        /zed/imu/data
+        /zed/imu/data_raw
+        /zed/left/camera_info
+        /zed/left/camera_info_raw
+        /zed/odom
+        /zed/path_map
+        /zed/path_odom
+        /zed/pose
+        /zed/joint_states
+        /zed/zed_wrapper_node/parameter_descriptions
+        /zed/zed_wrapper_node/parameter_updates"
+    if="$(arg record_essentials)" /> 
+    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/depth
+        /zed/depth/camera_info
+        /zed/depth/depth_registered
+        /zed/depth/depth_registered/compressed/parameter_descriptions
+        /zed/depth/depth_registered/compressed/parameter_updates
+        /zed/depth/depth_registered/compressedDepth
+        /zed/depth/depth_registered/compressedDepth/parameter_descriptions
+        /zed/depth/depth_registered/compressedDepth/parameter_updates
+        /zed/depth/depth_registered/theora
+        /zed/depth/depth_registered/theora/parameter_descriptions
+        /zed/depth/depth_registered/theora/parameter_updates"
+    if="$(arg record_depth)" />
+    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/confidence
+        /zed/confidence/confidence_image
+        /zed/confidence/confidence_image/compressed
+        /zed/confidence/confidence_image/compressed/parameter_descriptions
+        /zed/confidence/confidence_image/compressed/parameter_updates
+        /zed/confidence/confidence_image/compressedDepth/parameter_descriptions
+        /zed/confidence/confidence_image/compressedDepth/parameter_updates
+        /zed/confidence/confidence_image/theora
+        /zed/confidence/confidence_image/theora/parameter_descriptions
+        /zed/confidence/confidence_image/theora/parameter_updates
+        /zed/confidence/confidence_map"
+    if="$(arg record_confidence)" />
 </launch>

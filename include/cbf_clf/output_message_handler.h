@@ -71,7 +71,7 @@ double omh_throttle;
     act_control_msg.header.stamp = ros::Time::now();
     act_control_msg.header.seq = act_msg_count;
     act_control_msg.header.frame_id = "1";
-    act_control_msg.group_mix = 3;
+    act_control_msg.group_mix = 1;
     act_control_msg.controls[0] = a0;
     act_control_msg.controls[1] = a1;
     act_control_msg.controls[2] = a2;
