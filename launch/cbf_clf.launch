@@ -64,5 +64,5 @@
 
     <!-- Launch ROSBAG -->
     <arg name="record_essentials"  default="true" />
-    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o ~/bagfiles/cbf_clf/essentials /rosout" if="$(arg record)" /> 
+    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o ~/bagfiles/cbf_clf/essentials /rosout" if="$(arg record_essentials)" /> 
 </launch>
