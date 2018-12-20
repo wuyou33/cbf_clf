@@ -46,6 +46,8 @@ mavros_msgs::State mavros_current_state;
 mavros_msgs::SetMode mavros_offb_set_mode;
 mavros_msgs::CommandBool mavros_arm_cmd;
 
+std:string control_mode;
+
 int omh_loop_rate_ = 10;
 
 int act_msg_count = 1;
@@ -71,7 +73,7 @@ double omh_throttle;
     act_control_msg.header.stamp = ros::Time::now();
     act_control_msg.header.seq = act_msg_count;
     act_control_msg.header.frame_id = "1";
-    act_control_msg.group_mix = 1;
+    act_control_msg.group_mix = 3;
     act_control_msg.controls[0] = a0;
     act_control_msg.controls[1] = a1;
     act_control_msg.controls[2] = a2;

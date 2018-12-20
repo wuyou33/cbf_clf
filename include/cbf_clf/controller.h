@@ -32,6 +32,11 @@ ros::ServiceClient client_recieve_pose;
 ros::ServiceClient client_recieve_throttle;
 int loop_rate_ = 10; //Loop Rate of 10 Hz
 
+std::string flight_trajectory;
+std:string control_mode;
+
+const double RAD2DEG 57.295779513;
+
 // Pose Information
 double pose_tx, pose_ty, pose_tz;
 double pose_qx, pose_qy, pose_qz, pose_qw;
@@ -102,7 +107,7 @@ void send_throttle(ros::NodeHandle node, double throttle = 0.5){
     }
 }
 
-void fly_trajectory(ros::NodeHandle node, ros::Time start_time = ros::Time::now(), std::string traj_name = "const_height"){
+void send_trajectory(ros::NodeHandle node, ros::Time start_time = ros::Time::now(), std::string traj_name = "const_height"){
     ros::Time current_time = ros::Time::now();
     double looptime = 30; // s
     double progress = std::fmod((current_time.toSec() - start_time.toSec()), looptime);

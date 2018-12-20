@@ -8,6 +8,9 @@ int main(int argc, char** argv){
     ros::Rate loop_rate(omh_loop_rate_); //Needs to be declared AFTER the NodeHandle !
     ros::Time mavros_last_request = ros::Time::now();
 
+    // Load parameter from parameter-server
+    node_omh.getParam("/control_mode", control_mode);
+
     // Subscribe to current state of MAVROS
     mavros_state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 10, get_mavros_state);
 
@@ -56,11 +59,14 @@ int main(int argc, char** argv){
         }
 
         // Publish Pose Data to MAVROS/MAVLink
-        // send_pose_Handler(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
-
-        // Publish Actuator Control to MAVROS/MAVLink
-        send_Actuator_Control_Handler(node_omh, 1.0, 0.0, 1.0, 0.0);
-
+        // Check which control mode is choosen in launch file
+        if("trajectory_control" == control_mode || "pose_control" == control_mode){
+            send_pose_Handler(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
+        }
+        else if("actuator_control" == control_mode){
+            send_Actuator_Control_Handler(node_omh, 1.0, 0.0, 1.0, 0.0);
+        }
+        
         ros::spinOnce();
         loop_rate.sleep();
     }

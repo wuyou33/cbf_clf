@@ -1,9 +1,10 @@
 <launch>
     <!-- Launch CBF_CLF -->
     <arg name="flight_trajectory"   default="const_height" /> <!-- const_height, circle -->
-    <arg name="control_mode"        default="pose_control" /> <!-- pose_control_ actuator_control -->
+    <arg name="control_mode"        default="trajectory_control" /> <!-- trajectory_conotrol, pose_control, actuator_control -->
     <node name="controller" pkg="cbf_clf" type="controller" output="screen">
         <param name="flight_trajectory" value="$(arg flight_trajectory)" />
+        <param name="control_mode"      value="$(arg control_mode)" />
     </node>
     <node name="input_message_handler" pkg="cbf_clf" type="input_message_handler" output="screen" />
     <node name="output_message_handler" pkg="cbf_clf" type="output_message_handler" output="screen">

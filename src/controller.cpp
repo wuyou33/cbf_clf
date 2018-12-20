@@ -19,11 +19,17 @@ int main(int argc, char** argv){
     ros::init(argc, argv, "cbf_clf_controller");
     ros::NodeHandle node;
 
+    // Set the loop rate of the spinner
     ros::Rate loop_rate(loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
+    // Check whether ROS is running or not
     if(!ros::ok()) ROS_ERROR("ROS not ok! Shutting down!");
 
     ros::Time start_time = ros::Time::now();
+
+    // Load parameter from parameter-server into the node
+    node.getParam("/flight_trajectory", flight_trajectory);
+    node.getParam("/control_mode", control_mode);
 
     while (ros::ok()){
         // Update pose information
@@ -32,12 +38,17 @@ int main(int argc, char** argv){
             pose_tx, pose_ty, pose_tz,
             pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
 
-        std::string trajectory_name = "const_height";
-        // node.getParam("trajectory", trajectory_name);
-        fly_trajectory(node, start_time, trajectory_name);
+        // Check which control mode is choosen in launch file
+        if("trajectory_control" == control_mode){
+            send_trajectory(node, start_time, flight_trajectory);
+        }    
+        else if ("pose_control" == control_mode){ //pose_control, actuator_control
+            send_pose(node); // TODO: ADD CALCULATED POSE AS FUNCTION ARGUMENTS!
+        }
+        else if("actuator_control" == control_mode){
 
-        // send_pose(node); // TODO: ADD CALCULATED POSE AS FUNCTION ARGUMENTS!
-        // send_throttle(node); // TODO: ADD CALCULATED THROTTLE AS FUNCTION ARGUMENTS!
+        }
+
 
         ros::spinOnce();
         loop_rate.sleep();
