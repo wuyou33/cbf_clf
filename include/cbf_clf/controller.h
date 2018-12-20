@@ -20,8 +20,8 @@
 #include "tf2/LinearMath/Matrix3x3.h"
 
 // Custom Header Files
-// #include "cbf_clf/input_message_handler.h"
-// #include "cbf_clf/output_message_handler.h"
+#include "cbf_clf/input_message_handler.h"
+#include "cbf_clf/output_message_handler.h"
 
 /*************
  * Variables *
@@ -33,9 +33,7 @@ ros::ServiceClient client_recieve_throttle;
 int loop_rate_ = 10; //Loop Rate of 10 Hz
 
 std::string flight_trajectory;
-std::string control_mode;
-
-const double RAD2DEG = 57.295779513;
+// std::string control_mode;
 
 // Pose Information
 double pose_tx, pose_ty, pose_tz;
