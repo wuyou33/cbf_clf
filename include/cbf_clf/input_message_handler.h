@@ -17,6 +17,8 @@
 #include "nav_msgs/Odometry.h"
 
 #include "cbf_clf/srv_get_pose.h"
+#include "cbf_clf/srv_recieve_pose.h"
+#include "cbf_clf/srv_recieve_throttle.h"
 
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2/LinearMath/Matrix3x3.h"
