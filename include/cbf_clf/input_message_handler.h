@@ -31,7 +31,7 @@ std::string pose_algorithm = "zed";
 
 int imh_loop_rate_ = 60;
 
-const double RAD2DEG 57.295779513;
+const double RAD2DEG = 57.295779513;
 
 // Pose Information
 double imh_pose_tx, imh_pose_ty, imh_pose_tz;

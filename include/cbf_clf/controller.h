@@ -33,9 +33,9 @@ ros::ServiceClient client_recieve_throttle;
 int loop_rate_ = 10; //Loop Rate of 10 Hz
 
 std::string flight_trajectory;
-std:string control_mode;
+std::string control_mode;
 
-const double RAD2DEG 57.295779513;
+const double RAD2DEG = 57.295779513;
 
 // Pose Information
 double pose_tx, pose_ty, pose_tz;
