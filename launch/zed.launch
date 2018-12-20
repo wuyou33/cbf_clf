@@ -66,7 +66,8 @@
         /zed/pose
         /zed/joint_states
         /zed/zed_wrapper_node/parameter_descriptions
-        /zed/zed_wrapper_node/parameter_updates"
+        /zed/zed_wrapper_node/parameter_updates
+		/qrotor1/pose"
     if="$(arg record_essentials)" /> 
     <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/depth
         /zed/depth/camera_info
