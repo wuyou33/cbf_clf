@@ -96,6 +96,7 @@
         /mavros/vfr_hud
         /mavros/vibration/raw/vibration
         /mavros/wind_estimation
+		/qrotor1/pose
         /zed/imu/data
         /zed/imu/data_raw
         /zed/left/camera_info

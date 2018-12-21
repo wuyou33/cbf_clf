@@ -56,6 +56,7 @@
         /mavros/vfr_hud
         /mavros/vibration/raw/vibration
         /mavros/wind_estimation
+		/qrotor1/pose
         /zed/imu/data
         /zed/imu/data_raw
         /zed/left/camera_info
@@ -66,8 +67,7 @@
         /zed/pose
         /zed/joint_states
         /zed/zed_wrapper_node/parameter_descriptions
-        /zed/zed_wrapper_node/parameter_updates
-		/qrotor1/pose"
+        /zed/zed_wrapper_node/parameter_updates"
     if="$(arg record_essentials)" /> 
     <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/depth
         /zed/depth/camera_info
