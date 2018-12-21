@@ -1,19 +1,4 @@
 <launch>
-    <!-- Launch CBF_CLF -->
-    <arg name="flight_trajectory"   default="const_height" /> <!-- const_height, circle -->
-    <arg name="control_mode"        default="trajectory_control" /> <!-- trajectory_conotrol, pose_control, actuator_control -->
-    <arg name="pose_algorithm"      default="zed" /><!-- zed, mocap -->
-    <node name="controller" pkg="cbf_clf" type="controller" output="screen">
-        <param name="flight_trajectory" value="$(arg flight_trajectory)" />
-        <param name="control_mode"      value="$(arg control_mode)" />
-    </node>
-    <node name="input_message_handler" pkg="cbf_clf" type="input_message_handler" output="screen">
-        <param name="pose_algorithm"    value="$(arg pose_algorithm)" />
-    </node>
-    <node name="output_message_handler" pkg="cbf_clf" type="output_message_handler" output="screen">
-        <param name="control_mode"      value="$(arg control_mode)" />
-    </node>
-
     <!-- Launch  ZED Wrapper-->
     <arg name="svo_file"        default="" /> <!-- <arg name="svo_file" default="path/to/svo/file.svo"> -->
 
@@ -44,34 +29,6 @@
         </include>
     </group>
 
-    <!-- Launch MAVROS -->
-    <arg name="fcu_url"         default="/dev/ttyTHS2:57600"/>
-    <arg name="gcs_url"         default="" />
-    <arg name="tgt_system"      default="1" />
-    <arg name="tgt_component"   default="1" />
-    <arg name="log_output"      default="screen" />
-    <arg name="fcu_protocol"    default="v2.0" />
-    <arg name="respawn_mavros"  default="false" />
-    
-    <node name="mavros" pkg="mavros" type="mavros_node" required="$(eval not respawn_mavros)" clear_params="true" output="$(arg log_output)" respawn="$(arg respawn_mavros)">
-        <param name="pluginlists_yaml"  value="$(find mavros)/launch/px4_pluginlists.yaml" />
-        <param name="config_yaml"       value="$(find mavros)/launch/px4_config.yaml" />
-        <!-- rosparam command="load" file="$(find mavros)/launch/px4_blacklist.yaml" -->
-
-        <!-- General stuff -->
-        <param name="fcu_url"           value="$(arg fcu_url)" />
-        <param name="gcs_url"           value="$(arg gcs_url)" />
-        <param name="tgt_system"        value="$(arg tgt_system)" />
-        <param name="tgt_component"     value="$(arg tgt_component)" />
-        <param name="log_output"        value="$(arg log_output)" />
-        <param name="fcu_protocol"      value="$(arg fcu_protocol)" />
-        <param name="respawn_mavros"    value="$(arg respawn_mavros)" />
-    
-        <!-- enable heartbeat send and reduce timeout -->
-        <!-- <param name="conn_heartbeat" value="5.0" /> -->
-        <!-- <param name="conn_timeout" value="20.0" /> -->
-    </node>
-
     <!-- Launch Octomap -->
     <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
 		<param name="resolution" value="0.01" />
@@ -87,7 +44,7 @@
 	</node>
 
     <!-- Launch ROSBAG -->
-    <arg name="record_essentials"   default="true" />
+    <arg name="record_essentials"   default="false" />
     <arg name="record_depth"        default="false" />
     <arg name="record_confidence"   default="false" />
 
@@ -96,24 +53,6 @@
         /rosout_agg
         /tf
         /tf_static
-        /diagnostics
-        /mavlink/from
-        /mavros/altitude
-        /mavros/battery
-        /mavros/extended_state
-        /mavros/imu/data
-        /mavros/mission/waypoints
-        /mavros/rc/out
-        /mavros/setpoint_attitude/att_throttle
-        /mavros/setpoint_attitude/attitude
-        /mavros/setpoint_position/local
-        /mavros/setpoint_raw/target_attitude
-        /mavros/state
-        /mavros/target_actuator_control
-        /mavros/vfr_hud
-        /mavros/vibration/raw/vibration
-        /mavros/wind_estimation
-		/qrotor1/pose
         /zed/imu/data
         /zed/imu/data_raw
         /zed/left/camera_info

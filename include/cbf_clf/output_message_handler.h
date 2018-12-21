@@ -89,9 +89,29 @@ double omh_throttle;
     ++act_msg_count;
 }
 
-void send_pose_Handler(ros::NodeHandle node_omh, double x, double y, double z, double qx, double qy, double qz, double qw){
+void send_pose_Handler_Position(ros::NodeHandle node_omh, double x, double y, double z, double qx, double qy, double qz, double qw){
+    pub_pose_set = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_position/local", omh_loop_rate_);
+
+    geometry_msgs::PoseStamped cmd_msg_pose;
+
+    cmd_msg_pose.header.stamp = ros::Time::now();
+    cmd_msg_pose.header.seq=pose_msg_count;
+    cmd_msg_pose.header.frame_id = "1";
+    cmd_msg_pose.pose.position.x = x;
+    cmd_msg_pose.pose.position.y = y;
+    cmd_msg_pose.pose.position.z = z;
+    cmd_msg_pose.pose.orientation.x = qx;
+    cmd_msg_pose.pose.orientation.y = qy;
+    cmd_msg_pose.pose.orientation.z = qz;
+    cmd_msg_pose.pose.orientation.w = qw;
+
+    pub_pose_set.publish(cmd_msg_pose);
+
+    ++pose_msg_count;
+}
+
+void send_pose_Handler_Attitude(ros::NodeHandle node_omh, double x, double y, double z, double qx, double qy, double qz, double qw){
     pub_pose_att = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/setpoint_attitude/attitude", omh_loop_rate_);
-    pub_pose_set = node_omh.advertise<geometry_msgs::PoseStamped>("mavros/setpoint_position/local", omh_loop_rate_);
 
     geometry_msgs::PoseStamped cmd_msg_pose;
 
@@ -107,12 +127,11 @@ void send_pose_Handler(ros::NodeHandle node_omh, double x, double y, double z, d
     cmd_msg_pose.pose.orientation.w = qw;
 
     pub_pose_att.publish(cmd_msg_pose);
-    pub_pose_set.publish(cmd_msg_pose);
 
     ++pose_msg_count;
 }
 
-void send_throttle_Handler(ros::NodeHandle node_omh, double throttle){
+void send_throttle_Handler_Attitude(ros::NodeHandle node_omh, double throttle){
     pub_throttle = node_omh.advertise<std_msgs::Float64>("/mavros/setpoint_attitude/att_throttle", omh_loop_rate_);
 
     std_msgs::Float64 cmd_msg_throttle;

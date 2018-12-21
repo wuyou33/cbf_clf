@@ -29,7 +29,7 @@
 ros::Subscriber subscriber_get_Pose;
 ros::ServiceServer service_send_Pose;
 
-std::string pose_algorithm = "zed";
+std::string pose_algorithm;
 
 int imh_loop_rate_ = 60;
 
@@ -48,8 +48,8 @@ double imh_odom_roll, imh_odom_pitch, imh_odom_yaw;
 /*************
  * Functions *
  *************/
-//ZED Subscriber Callbacks
-void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
+//Subscriber Callbacks
+void odom_Callback(const nav_msgs::Odometry::ConstPtr& msg){
     imh_odom_tx = msg->pose.pose.position.x;
     imh_odom_ty = msg->pose.pose.position.y;
     imh_odom_tz = msg->pose.pose.position.z;
@@ -59,7 +59,7 @@ void zed_odom_Callback(const nav_msgs::Odometry::ConstPtr& msg) {
     imh_odom_qw = msg->pose.pose.orientation.w;
 }
 
-void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
+void pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg){
     imh_pose_tx = msg->pose.position.x;
     imh_pose_ty = msg->pose.position.y;
     imh_pose_tz = msg->pose.position.z;
@@ -68,29 +68,6 @@ void zed_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr& msg) {
     imh_pose_qz = msg->pose.orientation.z;
     imh_pose_qw = msg->pose.orientation.w;
 }
-
-// std::tuple<double, double, double, double, double, double, double> get_pose_Handler(){
-//     // // Create node Handler
-//     // ros::NodeHandle node_get_Pose;
-
-//     // if (algorithm == "zed"){
-//     //     subscriber_get_Pose = node_get_Pose.subscribe("/zed/pose", 1, zed_pose_Callback);
-//     //     ROS_INFO("Recieved RAW pose data: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-//     //         imh_pose_tx, imh_pose_ty, imh_pose_tz,
-//     //         imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-//     //     ros::spinOnce();
-//     // }
-//     // // else if (alogrithm == "other"){
-//     // // // TODO
-//     // // }
-//     // else{
-//     //     ROS_ERROR("The called pose algortihm is not valid!");
-//     // }
-//     ROS_WARN("get_pose_Handler is called! Returning: [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f], [%.2f]",
-//         imh_pose_tx, imh_pose_ty, imh_pose_tz,
-//         imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-//     return std::make_tuple (imh_pose_tx, imh_pose_ty, imh_pose_tz, imh_pose_qx, imh_pose_qy, imh_pose_qz, imh_pose_qw);
-// }
 
 bool srv_send_pose(cbf_clf::srv_get_pose::Request &req, cbf_clf::srv_get_pose::Response &res){
     res.x = imh_pose_tx;
