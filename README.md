@@ -173,6 +173,32 @@ catkin build
 ```
 echo "source devel/setup.bash" >> ~/.bashrc && source ~/.bashrc
 ```
+### Installing Octomap
+We recommend installing Octomap from source.
+```
+cd ~/catkin_ws/src
+```
+Cloning the Repository and checking out the current kinetic-branch.
+```
+git clone https://github.com/OctoMap/octomap_mapping.git
+cd octomap_server
+git checkout kinetic-devel
+```
+Building the workspace.
+```
+cd ~/catkin_ws
+catkin build
+```
+_Note: occasionally, while building the workingspace, one may face a Warning similar to:_
+
+> CMake Warning at /opt/ros/kinetic/share/catkin/cmake/catkin_package.cmake:166 (message):
+>   catkin_package() DEPENDS on 'octomap' but neither 'octomap_INCLUDE_DIRS'
+>   nor 'octomap_LIBRARIES' is defined.
+> Call Stack (most recent call first):
+>   /opt/ros/kinetic/share/catkin/cmake/catkin_package.cmake:102 (_catkin_package)
+>   CMakeLists.txt:37 (catkin_package)
+
+_In that case, try building the workspace again via ```catkin build```._
 ### Installing cbf-clf
 Currently, only installation from source is supported.
 ```
