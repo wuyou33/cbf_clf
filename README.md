@@ -187,9 +187,14 @@ git checkout kinetic-devel
 Building the workspace.
 ```
 cd ~/catkin_ws
+sudo rosdep update
 catkin build
 ```
-_Note: occasionally, while building the workingspace, one may face a Warning similar to:_
+_Note 1: if you face a CMake-Error, it is most likely, that you need to install the following packages, as those could be missing:_
+```
+sudo apt-get install ros-kinetic-octomap ros-kinetic-octomap-mapping ros-kinetic-octomap-msgs ros-kinetic-octomap-ros ros-kinetic-octomap-rviz-plugins ros-kinetic-octomap-server -y
+```
+_Note 2: occasionally, while building the workingspace, one may face a CMake-Warning similar to:_
 
 > CMake Warning at /opt/ros/kinetic/share/catkin/cmake/catkin_package.cmake:166 (message):
 >   catkin_package() DEPENDS on 'octomap' but neither 'octomap_INCLUDE_DIRS'
