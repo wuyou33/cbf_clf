@@ -30,7 +30,7 @@
     </group>
 
     <!-- Launch ROSBAG -->
-    <arg name="record_essentials"   default="false" />
+    <arg name="record_essentials"   default="true" />
     <arg name="record_depth"        default="false" />
     <arg name="record_confidence"   default="false" />
 
