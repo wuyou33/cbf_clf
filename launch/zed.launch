@@ -34,12 +34,7 @@
     <arg name="record_depth"        default="false" />
     <arg name="record_confidence"   default="false" />
 
-    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/essentials
-        /rosout
-        /rosout_agg
-        /tf
-        /tf_static
-        /diagnostics
+    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/essentials 
         /mavlink/from
         /mavros/altitude
         /mavros/battery
@@ -56,7 +51,7 @@
         /mavros/vfr_hud
         /mavros/vibration/raw/vibration
         /mavros/wind_estimation
-		/qrotor1/pose
+	/qrotor1/pose
         /zed/imu/data
         /zed/imu/data_raw
         /zed/left/camera_info
@@ -69,7 +64,7 @@
         /zed/zed_wrapper_node/parameter_descriptions
         /zed/zed_wrapper_node/parameter_updates"
     if="$(arg record_essentials)" /> 
-    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/depth
+    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/depth 
         /zed/depth/camera_info
         /zed/depth/depth_registered
         /zed/depth/depth_registered/compressed/parameter_descriptions
@@ -81,7 +76,7 @@
         /zed/depth/depth_registered/theora/parameter_descriptions
         /zed/depth/depth_registered/theora/parameter_updates"
     if="$(arg record_depth)" />
-    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/confidence
+    <node pkg="rosbag" type="record" name="rosbag_record" args="record -o /home/nvidia/bagfiles/cbf_clf/confidence 
         /zed/confidence/confidence_image
         /zed/confidence/confidence_image/compressed
         /zed/confidence/confidence_image/compressed/parameter_descriptions
