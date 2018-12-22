@@ -37,9 +37,11 @@ ros::Publisher pub_act_control;
 ros::Publisher pub_pose_att;
 ros::Publisher pub_pose_set;
 ros::Publisher pub_throttle;
+ros::Publisher pub_pose_mavros;
 ros::Subscriber mavros_state_sub;
 ros::ServiceServer service_recieve_Pose;
 ros::ServiceServer service_recieve_Throttle;
+ros::ServiceClient client_get_pose;
 ros::ServiceClient mavros_arming_client;
 ros::ServiceClient mavros_set_mode_client;
 
@@ -56,7 +58,7 @@ int pose_msg_count = 1;
 
 // Pose Information
 double omh_pose_tx, omh_pose_ty, omh_pose_tz;
-double omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw;
+double omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw;;
 
 // Thurst Information
 double omh_thrust;
@@ -143,6 +145,27 @@ void send_throttle_Handler_Attitude(ros::NodeHandle node_omh, double throttle){
     pub_throttle.publish(cmd_msg_throttle);
 }
 
+void send_pose_Handler_Mavros(ros::NodeHandle node_omh, double x, double y, double z, double qx, double qy, double qz, double qw){
+    pub_pose_mavros = node_omh.advertise<geometry_msgs::PoseStamped>("/mavros/vision_pose/pose", omh_loop_rate_);
+
+    geometry_msgs::PoseStamped cmd_msg_pose;
+
+    cmd_msg_pose.header.stamp = ros::Time::now();
+    cmd_msg_pose.header.seq=pose_msg_count;
+    cmd_msg_pose.header.frame_id = "1";
+    cmd_msg_pose.pose.position.x = x;
+    cmd_msg_pose.pose.position.y = y;
+    cmd_msg_pose.pose.position.z = z;
+    cmd_msg_pose.pose.orientation.x = qx;
+    cmd_msg_pose.pose.orientation.y = qy;
+    cmd_msg_pose.pose.orientation.z = qz;
+    cmd_msg_pose.pose.orientation.w = qw;
+
+    pub_pose_mavros.publish(cmd_msg_pose);
+
+    ++pose_msg_count;
+}
+
 bool srv_recieve_pose(cbf_clf::srv_recieve_pose::Request &req, cbf_clf::srv_recieve_pose::Response &res){
     omh_pose_tx = req.x;
     omh_pose_ty = req.y;
@@ -167,4 +190,20 @@ bool srv_recieve_throttle(cbf_clf::srv_recieve_throttle::Request &req, cbf_clf::
 
 void get_mavros_state(const mavros_msgs::State::ConstPtr& msg){
     mavros_current_state = *msg;
+}
+
+void get_pose(ros::NodeHandle node_omh){
+    cbf_clf::srv_get_pose srv_res;
+    srv_res.request.dummy = 0.0;
+
+    client_get_pose = node_omh.serviceClient<cbf_clf::srv_get_pose>("srv_get_pose");
+    client_get_pose.call(srv_res);
+
+    omh_pose_tx = srv_res.response.x;
+    omh_pose_ty = srv_res.response.y;
+    omh_pose_tz = srv_res.response.z;
+    omh_pose_qx = srv_res.response.qx;
+    omh_pose_qy = srv_res.response.qy;
+    omh_pose_qz = srv_res.response.qz;
+    omh_pose_qw = srv_res.response.qw;
 }
