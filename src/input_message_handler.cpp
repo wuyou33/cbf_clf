@@ -16,7 +16,8 @@ int main(int argc, char** argv){
         subscriber_get_Pose = node_imh.subscribe("/qrotor1/pose", imh_loop_rate_, pose_Callback);
     }
     else{
-        ROS_ERROR("The called pose algortihm is not valid!");
+        ROS_ERROR("The called pose algortihm is not valid! Assuming default (zed)");
+        subscriber_get_Pose = node_imh.subscribe("/zed/pose", imh_loop_rate_, pose_Callback);
     }
 
     service_send_Pose = node_imh.advertiseService("srv_get_pose", srv_send_pose);
