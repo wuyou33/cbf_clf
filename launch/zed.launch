@@ -57,6 +57,7 @@
         /mavros/vibration/raw/vibration
         /mavros/wind_estimation
 	/qrotor1/pose
+        /zed/imu/data_raw
         /zed/odom
         /zed/pose"
     if="$(arg record_essentials)" /> 
