@@ -53,15 +53,12 @@
         /rosout_agg
         /tf
         /tf_static
-        /zed/imu/data
-        /zed/imu/data_raw
         /zed/left/camera_info
         /zed/left/camera_info_raw
         /zed/odom
         /zed/path_map
         /zed/path_odom
         /zed/pose
-        /zed/joint_states
         /zed/zed_wrapper_node/parameter_descriptions
         /zed/zed_wrapper_node/parameter_updates"
     if="$(arg record_essentials)" /> 
