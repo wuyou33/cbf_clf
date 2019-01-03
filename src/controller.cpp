@@ -28,8 +28,8 @@ int main(int argc, char** argv){
     ros::Time start_time = ros::Time::now();
 
     // Load parameter from parameter-server into the node
-    node.getParam("/flight_trajectory", flight_trajectory);
-    node.getParam("/control_mode", control_mode);
+    node.getParam("/controller/flight_trajectory", flight_trajectory);
+    node.getParam("/controller/control_mode", control_mode);
 
     while (ros::ok()){
         // Update pose information
@@ -39,13 +39,13 @@ int main(int argc, char** argv){
             pose_roll * RAD2DEG, pose_pitch * RAD2DEG, pose_yaw * RAD2DEG);
 
         // Check which control mode is choosen in launch file
-        if("trajectory_control" == control_mode){
+        if("trajectory_control" == control_mode.c_str()){
             send_trajectory(node, start_time, flight_trajectory);
         }    
-        else if ("pose_control" == control_mode){ //pose_control, actuator_control
+        else if ("pose_control" == control_mode.c_str()){ //pose_control, actuator_control
             send_pose(node); // TODO: ADD CALCULATED POSE AS FUNCTION ARGUMENTS!
         }
-        else if("actuator_control" == control_mode){
+        else if("actuator_control" == control_mode.c_str()){
 
         }
 

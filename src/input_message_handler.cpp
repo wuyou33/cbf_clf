@@ -7,12 +7,12 @@ int main(int argc, char** argv){
 
     ros::Rate loop_rate(imh_loop_rate_); //Needs to be declared AFTER the NodeHandle !
 
-    node_imh.getParam("/pose_algorithm", pose_algorithm);
+    node_imh.getParam("/input_message_handler/pose_algorithm", pose_algorithm);
 
-    if (pose_algorithm == "zed"){
+    if ("zed" == pose_algorithm.c_str()){
         subscriber_get_Pose = node_imh.subscribe("/zed/pose", imh_loop_rate_, pose_Callback);
     }
-    else if (pose_algorithm == "mocap"){
+    else if ("mocap" == pose_algorithm.c_str()){
         subscriber_get_Pose = node_imh.subscribe("/qrotor1/pose", imh_loop_rate_, pose_Callback);
     }
     else{

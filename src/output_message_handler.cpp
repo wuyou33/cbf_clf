@@ -9,7 +9,7 @@ int main(int argc, char** argv){
     ros::Time mavros_last_request = ros::Time::now();
 
     // Load parameter from parameter-server
-    node_omh.getParam("control_mode", control_mode);
+    node_omh.getParam("/output_message_handler/control_mode", control_mode);
     ROS_INFO("Controlmode set to %s", control_mode.c_str());
 
     // Subscribe to current state of MAVROS
@@ -64,7 +64,7 @@ int main(int argc, char** argv){
         send_pose_Handler_Mavros(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
 
         // Check which control mode is choosen in launch file
-        if("trajectory_control" == control_mode || "pose_control" == control_mode){
+        if("trajectory_control" == control_mode.c_str() || "pose_control" == control_mode.c_str()){
             send_pose_Handler_Position(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
         }
         else if("actuator_control" == control_mode.c_str()){
