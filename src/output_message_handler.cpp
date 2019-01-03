@@ -9,7 +9,7 @@ int main(int argc, char** argv){
     ros::Time mavros_last_request = ros::Time::now();
 
     // Load parameter from parameter-server
-    node_omh.getParam("/control_mode", control_mode);
+    node_omh.getParam("control_mode", control_mode);
     ROS_INFO("Controlmode set to %s", control_mode.c_str());
 
     // Subscribe to current state of MAVROS
