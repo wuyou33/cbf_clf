@@ -64,10 +64,10 @@ int main(int argc, char** argv){
         send_pose_Handler_Mavros(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
 
         // Check which control mode is choosen in launch file
-        if("trajectory_control" == control_mode.c_str() || "pose_control" == control_mode.c_str()){
+        if("trajectory_control" == control_mode || "pose_control" == control_mode){
             send_pose_Handler_Position(node_omh, omh_pose_tx, omh_pose_ty, omh_pose_tz, omh_pose_qx, omh_pose_qy, omh_pose_qz, omh_pose_qw);
         }
-        else if("actuator_control" == control_mode.c_str()){
+        else if("actuator_control" == control_mode){
             send_Actuator_Control_Handler(node_omh, 1.0, 0.0, 0.0, 0.0);
         }
         else{
