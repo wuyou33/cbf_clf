@@ -1,7 +1,7 @@
 <launch>
     <!-- Launch CBF_CLF -->
     <arg name="flight_trajectory"   default="const_height" /> <!-- const_height, circle -->
-    <arg name="control_mode"        default="trajectory_control" /> <!-- trajectory_conotrol, pose_control, actuator_control -->
+    <arg name="control_mode"        default="actuator_control" /> <!-- trajectory_conotrol, pose_control, actuator_control -->
     <arg name="pose_algorithm"      default="zed" /><!-- zed, mocap -->
     <node name="controller" pkg="cbf_clf" type="controller" output="screen">
         <param name="flight_trajectory" value="$(arg flight_trajectory)" />
@@ -114,15 +114,10 @@
         /mavros/vibration/raw/vibration
         /mavros/wind_estimation
 		/qrotor1/pose
-        /zed/imu/data
-        /zed/imu/data_raw
-        /zed/left/camera_info
-        /zed/left/camera_info_raw
         /zed/odom
         /zed/path_map
         /zed/path_odom
         /zed/pose
-        /zed/joint_states
         /zed/zed_wrapper_node/parameter_descriptions
         /zed/zed_wrapper_node/parameter_updates"
     if="$(arg record_essentials)" /> 
