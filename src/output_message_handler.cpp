@@ -10,7 +10,7 @@ int main(int argc, char** argv){
 
     // Load parameter from parameter-server
     node_omh.getParam("/control_mode", control_mode);
-    ROSINFO("Controlmode set to %s", control_mode);
+    ROS_INFO("Controlmode set to %s", control_mode);
 
     // Subscribe to current state of MAVROS
     mavros_state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 10, get_mavros_state);
