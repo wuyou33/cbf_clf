@@ -1,0 +1,34 @@
+plugin_blacklist:
+# common
+- safety_area
+# extras
+- image_pub
+- vibration
+- distance_sensor
+- rangefinder
+# custom/not needed
+- 3dr_radio
+- adsb
+- altitude
+- cam_imu_sync
+- distance_sensor
+- fake_gps
+- ftp
+- gps_rtk
+- hil
+- home_position
+- mocap_pose_estimation
+- obstacle_distance
+- rangefinder
+- safety_area
+- trajectory
+- vfr_hud
+- vibration
+- vision_pose_estimation
+- vision_speed_estimation
+- waypoint
+- wind_estimation
+
+plugin_whitelist: []
+# 'sys_*'
+
