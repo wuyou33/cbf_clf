@@ -9,10 +9,10 @@ int main(int argc, char** argv){
 
     node_imh.getParam("/input_message_handler/pose_algorithm", pose_algorithm);
 
-    if ("zed" == pose_algorithm.c_str()){
+    if ("zed" == pose_algorithm){
         subscriber_get_Pose = node_imh.subscribe("/zed/pose", imh_loop_rate_, pose_Callback);
     }
-    else if ("mocap" == pose_algorithm.c_str()){
+    else if ("mocap" == pose_algorithm){
         subscriber_get_Pose = node_imh.subscribe("/qrotor1/pose", imh_loop_rate_, pose_Callback);
     }
     else{
