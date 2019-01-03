@@ -10,7 +10,7 @@ int main(int argc, char** argv){
 
     // Load parameter from parameter-server
     node_omh.getParam("/control_mode", control_mode);
-    ROS_INFO("Controlmode set to %s", control_mode);
+    ROS_INFO("Controlmode set to %s", control_mode.c_str());
 
     // Subscribe to current state of MAVROS
     mavros_state_sub = node_omh.subscribe<mavros_msgs::State>("mavros/state", 10, get_mavros_state);
@@ -71,7 +71,7 @@ int main(int argc, char** argv){
             send_Actuator_Control_Handler(node_omh, 1.0, 0.0, 0.0, 0.0);
         }
         else{
-            ROSWARN("No control Mode defined! Assuming Actuator Control (for now...)");
+            ROS_WARN("No control Mode defined! Assuming Actuator Control (for now...)");
             send_Actuator_Control_Handler(node_omh, 1.0, 0.0, 0.0, 0.0);
         }
         
