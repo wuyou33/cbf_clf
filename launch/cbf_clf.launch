@@ -54,8 +54,8 @@
     <arg name="respawn_mavros"  default="false" />
     
     <include file="$(find mavros)/launch/node.launch">
-        <param name="pluginlists_yaml"  value="$(find cbf_clf)/launch/px4_pluginlists.yaml" />
-        <param name="config_yaml"       value="$(find cbf_clf)/launch/px4_config.yaml" />
+        <arg name="pluginlists_yaml"  value="$(find cbf_clf)/launch/px4_pluginlists.yaml" />
+        <arg name="config_yaml"       value="$(find cbf_clf)/launch/px4_config.yaml" />
 
         <!-- General stuff -->
 		<arg name="fcu_url" value="$(arg fcu_url)" />
